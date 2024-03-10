@@ -1,0 +1,18 @@
+
+body {
+    background-image: url("../Images/space6.jpg");
+  }
+
+
+
+
+.r{
+    font-size: 5em;
+   text-decoration: underline;
+    text-align: center;
+    color: goldenrod;
+}
+.u{
+    color: rgb(253, 253, 251);
+    font-size: 2.5em;
+}

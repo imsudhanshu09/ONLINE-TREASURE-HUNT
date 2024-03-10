@@ -1,0 +1,11 @@
+/* Heading.css */
+.heading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(222, 246, 7);
+    font-size: 3em; /* Increase font size */
+    text-align: center; /* Center text */
+    width: 100%; /* Make the heading cover the entire width */
+}
