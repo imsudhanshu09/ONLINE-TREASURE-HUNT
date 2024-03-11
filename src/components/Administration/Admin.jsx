@@ -136,7 +136,7 @@ function Admin() {
 
   return (
     <div className="container">
-      <nav className="navbar">
+      <div className="navbar">
         <ul>
           <li>
             <Link to="/SignUp">★ Sign Up</Link>
@@ -145,7 +145,7 @@ function Admin() {
             <Link to="/Login">★ Login</Link>
           </li>
         </ul>
-      </nav>
+      </div>
       <div className="background"></div>
       <div className="sun"></div>
       <div className="welcome-message">
