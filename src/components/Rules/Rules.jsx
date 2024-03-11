@@ -11,6 +11,10 @@ const Rules = () => {
         </div>
         <div>
         <ul className='u'>
+          <li>OTH will begin at  ""  and will end at   ""</li>
+          <br></br>
+          <li>You are allowed to use internet and AI tools to search answer.If the answer is correct then only you can move on to next question</li>
+        <br></br>
         <li>All answers should be in small letters. For example if answer is Mumbai then write ' mumbai ' as answer</li>
         <br></br>
         <li>No space should be given among the answer.For example if answer is " Rohit Sharma " then answer should be written as " rohitsharma "</li>
