@@ -8,6 +8,8 @@ import Rules from './components/Rules/Rules';
 import Admin from './components/Administration/Admin';
 import Login from './components/Administration/Login';
 import SignUp from './components/Administration/SignUp';
+import Leaderboard from './components/Leaderboard/Leaderboard';
+import data from './components/data/data.json';
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
     <Route path="/" element={<Home1/>}/>
     <Route excat path='/about' element={<Rules/>}/>
     <Route excat path='/Account' element={<Admin/>}/>
+    <Route excat path='/Leaderboard' element={<Leaderboard data={data}/>}/>
     <Route path="/SignUp" element={<SignUp />} />
     <Route path="/Login" element={<Login />} />
   </Routes>
