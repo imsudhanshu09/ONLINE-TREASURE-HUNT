@@ -10,6 +10,7 @@ const Leaderboard = ({ data }) => {
           <tr>
             <th>Rank</th>
             <th>Name</th>
+            <th>Semester</th>
             <th>Score</th>
           </tr>
         </thead>
@@ -18,6 +19,7 @@ const Leaderboard = ({ data }) => {
             <tr key={player.id}>
               <td>{index + 1}</td>
               <td>{player.name}</td>
+              <td>{player.Semester}</td>
               <td>{player.score}</td>
             </tr>
           ))}

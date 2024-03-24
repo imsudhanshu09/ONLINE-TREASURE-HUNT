@@ -1,9 +1,9 @@
 [
-    { "id": 1, "name": "Tanmay", "score": 1000 },
-    { "id": 2, "name": "Sudhanshu", "score": 900 },
-    { "id": 3, "name": "Garv", "score": 800 },
-    { "id": 4, "name": "Nikhil", "score": 700 },
-    { "id": 5, "name": "Arpit", "score": 600 },
-    { "id": 6, "name": "Svayam", "score": 500 }
+    { "id": 1, "name": "Tanmay","Semester":"1", "score": 1000 },
+    { "id": 2, "name": "Sudhanshu", "Semester":"1","score": 900 },
+    { "id": 3, "name": "Garv","Semester":"1", "score": 800 },
+    { "id": 4, "name": "Nikhil","Semester":"1", "score": 700 },
+    { "id": 5, "name": "Arpit", "Semester":"1","score": 600 },
+    { "id": 6, "name": "Svayam", "Semester":"1","score": 500 }
   ]
   

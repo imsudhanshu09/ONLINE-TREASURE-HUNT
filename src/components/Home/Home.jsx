@@ -286,18 +286,15 @@
 
    
             
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef,useState } from 'react';
 import * as THREE from 'three';
-// import Heading3D from '../Heading/Heading';
+
 
 
 import spaceImage from '../Images/space6.jpg';
 import earthimage from "../Images/earth4.jpg";
 import sunimage from "../Images/sun3.jpg";
 import "./Home.css";
-// import Heading from '../Heading/Heading';
-// import spaceshipModelPath from '../Images/star_war_ship.glb';
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // updated import path for GLTFLoader
 
 const Home = () => {
     const scene = useRef(new THREE.Scene());
@@ -307,10 +304,9 @@ const Home = () => {
         0.1,
         1000
     ));
-    // const spaceships = useRef([]);
 
-    // const textMesh = useRef(); // Ref for text mesh
-    // const controls = useRef(); // Ref for OrbitControls
+    const [asteroidsHit, setAsteroidsHit] = useState(0);
+
 
 
     useEffect(() => {
@@ -343,10 +339,7 @@ const Home = () => {
             const sungeometry = new THREE.SphereGeometry(4.5, 64, 64);
             const sunmaterial = new THREE.MeshBasicMaterial({ map: suntexture });
 
-            // const light1 = new THREE.PointLight(0xFAF9F6, 375);
-            // light1.position.set(0, 0, 15);
-            // const light2 = new THREE.PointLight(0xFAF9F6, 375);
-            // light2.position.set(0, 0, -10);
+       
 
             const light1 = new THREE.PointLight(0xffffff, 1); // Adjust light color and intensity
             light1.position.set(4, -7, 0); // Position light to focus on Earth
@@ -373,53 +366,14 @@ const Home = () => {
             const ambientLight = new THREE.AmbientLight(0x202020); // Decreased intensity
             scene.current.add(ambientLight);
 
-            // Load spaceship model
-            // const loader = new GLTFLoader();
-            // const numberOfSpaceships = 5;
-            // for (let i = 0; i < numberOfSpaceships; i++) {
-            //     loader.load(
-            //         spaceshipModelPath,
-            //         function (glb) {
-            //             console.log("model loaded");
-            //             const spaceship = glb.scene;
-            //             spaceship.position.set(Math.random() * 20 - 10, Math.random() * 10 - 5, Math.random() * 10 - 5);
-            //             scene.current.add(spaceship);
-            //             spaceships.current.push(spaceship); // Store reference to the spaceship
-            //         },
-            //         undefined,
-            //         function (error) {
-            //             console.error('Error loading spaceship model:', error);
-            //         }
-            //     );
-            // }
-
-            // const textGeometry = new TextGeometry("ONLINE TREASUR HUNT", {
-            //     // font: /* Your font */,
-            //     size: 1,
-            //     height: 0.1,
-            //     curveSegments: 12,
-            //     bevelEnabled: true,
-            // });
-
-        //     const textMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFFFF});
-        //     const textMeshObj = new THREE.Mesh(textGeometry, textMaterial);
-        //     textMesh.current = textMeshObj;
-        // scene.current.add(textMeshObj);
-
-        // Initialize OrbitControls
-        // controls.current = new OrbitControls(camera.current, renderer.domElement);
-
+           
 
 
 
             function animate() {
                 requestAnimationFrame(animate);
 
-                // spaceships.current.forEach(spaceship => {
-                //     spaceship.position.x += Math.random() * 0.1 - 0.05;
-                //     spaceship.position.y += Math.random() * 0.1 - 0.05;
-                //     spaceship.position.z += Math.random() * 0.1 - 0.05;
-                // });
+            
 
                 earth.rotation.y += 0.003;
 
@@ -438,14 +392,14 @@ const Home = () => {
 
     return (
         <div className='home'>
+            <div className="counter">Asteroids Hit: {asteroidsHit}</div>
             <canvas id='homeCanvas'>
 
                
 
             </canvas>
 
-           {/* < Heading3D></Heading3D> */}
-            {/* <Heading text="Your Heading Text" /> */}
+
            
         </div>
     );
@@ -456,12 +410,6 @@ export default Home;
 
 
 
-
-// {/* 
-//             <ambientLight intensity={0.5} />
-//                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-//                 <pointLight position={[-10, -10, -10]} />
-//                 <Heading text="Your Heading Text" /> */}
 
 
 
