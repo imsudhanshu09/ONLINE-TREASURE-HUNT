@@ -20,6 +20,9 @@ const Rules = () => {
         <li>No space should be given among the answer.For example if answer is " Rohit Sharma " then answer should be written as " rohitsharma "</li>
         <br></br>
         <li>Full names must be written. For example if answer is " gandhiji " then full name " mohandaskaramchandragandhi " is the answer </li>
+        <br></br>
+        <li>Hints are based on difficulty of questions.So number of hints are relative to questions.</li>
+        
         {/* Add more rules as needed */}
       </ul>
       </div>

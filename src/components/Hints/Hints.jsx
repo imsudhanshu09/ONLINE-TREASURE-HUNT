@@ -16,13 +16,18 @@ const Hints = () => {
         <p>But in this cruel world, no one helps someone without asking something in return and as you have expected, we are also part of this cruel world.</p>
       
         <p>As to get the crucial hints, you need to follow our Instagram handle as all hints will come on our IG page.</p>
-        
+        <br></br>
+        <p>******IMPORTANT INFORMATION *******</p>
+        <br></br>
+        <p>Hints are based on difficulty of questions.So number of hints are relative according to questions.</p>
+        <br></br>
         <p>Presenting Hints..........</p>
         
         <div className='h'>
       
       <h1>Hints</h1>
       </div>
+   
       </div>
     </div>
   );
