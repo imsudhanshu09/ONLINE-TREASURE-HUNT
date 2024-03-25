@@ -1,0 +1,29 @@
+.c{
+    transform: translateY(-50%);
+    top: 50%;
+    position: absolute;
+    color: white;
+    margin: 0px 60px;
+}
+.c h1{
+    font-size: 64px;
+    font-weight: 500;
+    margin: 0px 60px;
+}
+.c h1 span{
+    color:#ff3753;
+}
+.l{
+    display: flex;
+    color: goldenrod;
+}
+.l div{
+    flex-basis: 100%;
+    margin: 0px 60px;
+}
+.l div p{
+    font-size: 60px;
+    /* margin-bottom: -12px; */
+    margin-bottom: -10px;
+    
+}

@@ -2,16 +2,19 @@ import React from 'react'
 import "./Rules.css"
 
 const Rules = () => {
+
+ 
+
   return (
 
    
-    <div>
+    <div className>
       <div>
         <h1 className='r'>RULES</h1>
         </div>
         <div>
         <ul className='u'>
-          <li>OTH will begin at  ""  and will end at   ""</li>
+          <li>OTH will begin at  "06/04/24 at 00:00"  and will end at   "08/04/24 at 00:00"</li>
           <br></br>
           <li>You are allowed to use internet and AI tools to search answer.If the answer is correct then only you can move on to next question</li>
         <br></br>

@@ -11,6 +11,7 @@ import SignUp from './components/Administration/SignUp';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 import data from './components/data/data.json';
 import Hints from './components/Hints/Hints';
+import Countdown from './components/Countdown/Countdown';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     <Route excat path='/Account' element={<Admin/>}/>
     <Route excat path='/Leaderboard' element={<Leaderboard data={data}/>}/>
     <Route excat path='/Hints' element={<Hints/>}/>
+    {/* <Route excat path='/Hints' element={<Countdown/>}/> */}
     <Route path="/SignUp" element={<SignUp />} />
     <Route path="/Login" element={<Login />} />
   </Routes>

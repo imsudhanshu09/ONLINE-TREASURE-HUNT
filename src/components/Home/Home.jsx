@@ -389,6 +389,11 @@ const Home = () => {
         // Call the initialization function
         initThree();
     }, []);
+    
+
+    const handleHitAsteroid = () => {
+        setAsteroidsHit(prevCount => prevCount + 1);
+    };
 
     return (
         <div className='home'>
