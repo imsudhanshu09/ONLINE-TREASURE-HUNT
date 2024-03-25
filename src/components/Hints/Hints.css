@@ -27,6 +27,17 @@
     margin: 0;
     text-align: center;
     line-height: 1.5;
+    fill: yellow
+  }
+
+  .icon svg{
+    fill: yellow;
+    width: 66px;
+    height: 66px;
+  }
+
+  .icon a:hover svg{
+    fill: gold;
   }
   
  
