@@ -1,12 +1,16 @@
 import React from 'react';
 import './Heading.css'; // Import CSS for styling
+import logo from "../Images/OTH1.png";
 
 const Heading = () => {
     return (
         <div className="heading">
-            <h3>E CELL IIITP</h3>
+            {/* <div>
+            {/* <h3>E CELL IIITP</h3>
             <p>Presents......</p>
-            <h1>ONLINE TREASURE  HUNT</h1>
+            </div> */} 
+ <img src={logo} alt="Logo" width={800} height={500}/>
+            
         </div>
     );
 }
