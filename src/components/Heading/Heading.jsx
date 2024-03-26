@@ -1,6 +1,6 @@
 import React from 'react';
 import './Heading.css'; // Import CSS for styling
-import logo from "../Images/OTH1.png";
+import logo from "../Images/OTH.png";
 
 const Heading = () => {
     return (
