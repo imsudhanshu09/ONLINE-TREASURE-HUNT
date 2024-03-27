@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Hints.css'; // Import CSS for styling
 
 
@@ -16,6 +16,19 @@ const instagramIcon = (
 );
 
 const Hints = () => {
+  useEffect(() => {
+    // Create stars dynamically
+    const container = document.querySelector('.background');
+    const numStars = 100; // Adjust number of stars as needed
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`; // Randomize star position vertically
+      star.style.left = `${Math.random() * 100}%`; // Randomize star position horizontally
+      container.appendChild(star);
+    }
+  }, []);
+
   return (
     <div className="hints-container">
       <div className="crawl">
@@ -48,6 +61,7 @@ const Hints = () => {
       </div>
    
       </div>
+      <div className="background"></div>
     </div>
   );
 };

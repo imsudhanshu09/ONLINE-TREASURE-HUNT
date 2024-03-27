@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Leaderboard.css'; // Import CSS for styling
 
 const Leaderboard = ({ data }) => {
+  useEffect(() => {
+    // Create stars dynamically
+    const container = document.querySelector('.background');
+    const numStars = 100; // Adjust number of stars as needed
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`; // Randomize star position vertically
+      star.style.left = `${Math.random() * 100}%`; // Randomize star position horizontally
+      container.appendChild(star);
+    }
+  }, []);
+
   return (
     <div className="leaderboard-container">
       <h1 className="leaderboard-title">Leaderboard</h1>
@@ -25,6 +38,7 @@ const Leaderboard = ({ data }) => {
           ))}
         </tbody>
       </table>
+      <div className="background"></div>
     </div>
   );
 };
