@@ -74,6 +74,19 @@ import React, { useState, useEffect } from 'react';
 import './Rules.css';
 
 const Rules = () => {
+  useEffect(() => {
+    // Create stars dynamically
+    const container = document.querySelector('.background');
+    const numStars = 100; // Adjust number of stars as needed
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`; // Randomize star position vertically
+      star.style.left = `${Math.random() * 100}%`; // Randomize star position horizontally
+      container.appendChild(star);
+    }
+  }, []);
+  
   const [rulesVisible, setRulesVisible] = useState([]);
 
   useEffect(() => {
@@ -129,8 +142,7 @@ const Rules = () => {
           <li>Only one question contains a fully numeric answer. Example "1234"</li>
           <br />
           <li>Hints are based on the difficulty of questions. So the number of hints is relative to questions.</li>
-         
-        </ol>
+
       </div>
     </div>
   );

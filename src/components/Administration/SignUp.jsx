@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import './SignUp.css';
 
 const SignUp = () => {
+  useEffect(() => {
+    // Create stars dynamically
+    const container = document.querySelector('.background');
+    const numStars = 100; // Adjust number of stars as needed
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`; // Randomize star position vertically
+      star.style.left = `${Math.random() * 100}%`; // Randomize star position horizontally
+      container.appendChild(star);
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
@@ -22,7 +35,7 @@ const SignUp = () => {
     console.log("Form submitted with data:", formData);
     try {
       const response = await axios.post('http://localhost:3001/SignUp', formData);
-        console.log("Server response:",response.status);
+        console.log("Server response:",response.data.status);
         navigate('/Login');
       // Reset form after successful signup
       setFormData({
@@ -39,7 +52,7 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
-      {/* <h2 className="signup-title"></h2> */}
+      <h2 className="signup-title"></h2>
       <form action="/SignUp" method="POST" className="signup-form" onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="username">Username:</label>
@@ -61,7 +74,7 @@ const SignUp = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            pattern= "^[\w-]+(\.[\w-]+)*@(gmail\.com|cse\.iiitp\.ac\.in|ece\.iiitp\.ac\.in)$"
+            //pattern= "^[\w-]+(\.[\w-]+)*@(gmail\.com|cse\.iiitp\.ac\.in|ece\.iiitp\.ac\.in)$"
             title="Please enter a valid email address"
             required
           />
@@ -92,6 +105,8 @@ const SignUp = () => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
+      <div className="background"></div>
+      <div className="signup-sun"></div>
     </div>
   );
 };

@@ -11,8 +11,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    /* padding-right: 20%; */
     margin-top: -18vh;
+    overflow: hidden;
   }
   
   /* .signup-title {
@@ -26,6 +28,8 @@
     z-index: 1;
     font-weight: bold;
     text-align: center;
+    margin-right: 20%;
+    margin-top: 25vh;
     /* background-color: rgba(255, 255, 255, 0.8);
     padding: 40px;
     border-radius: 10px;
@@ -84,4 +88,92 @@
   .signup-form button[type="submit"]:hover {
     background: linear-gradient(to right, #FF6347, #FFA07A); /* Updated gradient color */
   }
+
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0; /* Remove any margins */
+    padding: 0;
+    background-color: #000; /* Set background color to black */
+    z-index: -1;
+  }
   
+  .star {
+    position: absolute;
+    width: 0.2vw; /* Adjust size of stars using vw for responsiveness */
+    height: 0.2vw; /* Adjust size of stars using vw for responsiveness */
+    background-color: #fff; /* Set color of stars to white */
+    border-radius: 50%; /* Make stars round */
+    animation: twinkling 3s infinite; /* Apply animation to stars */
+  }
+
+  @keyframes twinkling {
+    0% {
+      opacity: 0; /* Initially set stars to invisible */
+    }
+    50% {
+      opacity: 1; /* Set stars to visible */
+    }
+    100% {
+      opacity: 0; /* Set stars to invisible */
+    }
+  }
+  
+  .signup-sun {
+    position: absolute;
+    top: 28%;
+    left: 5%; /* Adjust position of sun to the left */
+    width: 40vw; /* Adjust size of sun using vw for responsiveness */
+    height: 40vw; /* Adjust size of sun using vw for responsiveness */
+    border-radius: 50%; /* Make sun round */
+    background: radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.8) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.4) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.3) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.2) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.1) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.05) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.025) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+      radial-gradient(
+        ellipse farthest-corner at 20% 30%,
+        rgba(255, 255, 255, 0.0125) 10%,
+        rgba(255, 255, 255, 0) 70%
+      ); /* Add radial gradient for 3D effect */
+    animation: rotateSun 10s linear infinite; /* Rotate sun */
+  }
+
+  @keyframes rotateSun {
+    100% {
+        transform: rotate(360deg);
+    }
+}
