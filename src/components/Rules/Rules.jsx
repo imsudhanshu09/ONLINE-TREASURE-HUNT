@@ -142,7 +142,8 @@ const Rules = () => {
           <li>Only one question contains a fully numeric answer. Example "1234"</li>
           <br />
           <li>Hints are based on the difficulty of questions. So the number of hints is relative to questions.</li>
-
+        </ol>
+        <div className="background"></div>
       </div>
     </div>
   );
