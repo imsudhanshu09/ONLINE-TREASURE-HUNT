@@ -10,8 +10,8 @@ const Leaderboard = ({ data }) => {
           <tr>
             <th>Rank</th>
             <th>Name</th>
-            <th>Semester</th>
-            <th>Score</th>
+            <th>Time Stamp</th>
+            <th>Questions Answered</th>
           </tr>
         </thead>
         <tbody>
