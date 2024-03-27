@@ -18,3 +18,15 @@ body {
     color: rgb(49, 179, 179);
     font-size: 2em;
 }
+
+
+
+/* .u li {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .u li.visible {
+    opacity: 1;
+  }
+   */
