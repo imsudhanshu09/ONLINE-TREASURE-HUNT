@@ -1,24 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Countdown.css';
 
 const Countdown = () => {
+  useEffect(() => {
+    // Create stars dynamically
+    const container = document.querySelector('.background');
+    const numStars = 100; // Adjust number of stars as needed
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`; // Randomize star position vertically
+      star.style.left = `${Math.random() * 100}%`; // Randomize star position horizontally
+      container.appendChild(star);
+    }
+  }, []);
+
+  const navigate = useNavigate();
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  let interval;
 
   const deadline = "April 6, 2024";
 
   const getTime = () => {
     const time = Date.parse(deadline) - Date.now();
-    setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-    setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-    setMinutes(Math.floor((time / (1000 * 60)) % 60));
-    setSeconds(Math.floor((time / 1000) % 60));
+    if (time <= 0) { // Check if timer has ended
+      clearInterval(interval); // Stop the interval
+      navigate('/QuestionPage'); // Navigate to QuestionPage component
+    } else {
+      setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+      setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+      setMinutes(Math.floor((time / (1000 * 60)) % 60));
+      setSeconds(Math.floor((time / 1000) % 60));
+    }
   };
 
   useEffect(() => {
-    const interval = setInterval(() => getTime(), 1000);
+    interval = setInterval(() => getTime(), 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -46,6 +67,7 @@ const Countdown = () => {
           <span>Seconds</span>
         </div>
       </div>
+      <div className="background"></div>
     </div>
   );
 };
