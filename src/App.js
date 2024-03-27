@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import { BrowserRouter as Router,Routes,Route,Link } from 'react-router-dom';
 // 
 import Home1 from './components/Home/Home1';
 import Header from './components/Header/Header';
@@ -16,19 +16,32 @@ import Countdown from './components/Countdown/Countdown';
 
 function App() {
   return (
- <Router>
-  <Header/>
-  <Routes>
-    <Route path="/" element={<Home1/>}/>
-    <Route excat path='/about' element={<Rules/>}/>
-    <Route excat path='/Account' element={<Admin/>}/>
-    <Route excat path='/Leaderboard' element={<Leaderboard data={data}/>}/>
-    <Route excat path='/Hints' element={<Hints/>}/>
-    {/* <Route excat path='/Hints' element={<Countdown/>}/> */}
-    <Route path="/SignUp" element={<SignUp />} />
-    <Route path="/Login" element={<Login />} />
-  </Routes>
- </Router>
+    <Router>
+      <Header />
+      <div className="container">
+        <nav className="navbar">
+          <ul>
+            <li>
+              <Link to="/SignUp">★ Sign Up</Link>
+            </li>
+            <li>
+              <Link to="/Login">★ Login</Link>
+            </li>
+          </ul>
+        </nav>
+        <div className="background"></div>
+        <Routes>
+          <Route path="/" element={<Home1 />} />
+          <Route exact path="/about" element={<Rules />} />
+          <Route exact path="/Account" element={<Admin />} />
+          <Route exact path="/Leaderboard" element={<Leaderboard data={data} />} />
+          <Route exact path="/Hints" element={<Hints />} />
+          {/* <Route exact path="/Hints" element={<Countdown />} /> */}
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Login" element={<Login />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
