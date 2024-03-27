@@ -1,4 +1,5 @@
 import React from 'react'
+
 import "./Rules.css"
 
 const Rules = () => {
@@ -8,7 +9,8 @@ const Rules = () => {
   return (
 
    
-    <div className>
+    <div>
+      
       <div>
         <h1 className='r'>RULES</h1>
         </div>
