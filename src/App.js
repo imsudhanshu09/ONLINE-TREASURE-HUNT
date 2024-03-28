@@ -21,7 +21,7 @@ function App() {
       <Header />
         <Routes>
           <Route path="/" element={<Home1 />} />
-          <Route exact path="/about" element={<Rules />} />
+          <Route exact path="/Rules" element={<Rules />} />
           <Route exact path="/Account" element={<Admin />} />
           <Route exact path="/Leaderboard" element={<Leaderboard data={data} />} />
           <Route exact path="/Hints" element={<Hints />} />
