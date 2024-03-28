@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json())
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://6605a84df2c05805fce87bd3--enchanting-nasturtium-a18806.netlify.app"],
     methods: ["GET", "POST"],
     credentials: true,
   })
