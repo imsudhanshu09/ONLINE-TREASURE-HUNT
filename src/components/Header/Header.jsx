@@ -21,7 +21,7 @@ const Header = () => {
         link3Text="Leaderboard"
         link4Text="Hints"
         link1Url="/"
-        link2Url="/about"
+        link2Url="/Rules"
         link3Url="/Leaderboard"
         link4Url="/Hints"
         link1ColorHover="white"
