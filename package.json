@@ -121,7 +121,7 @@
   "scripts": {
 
 
-    "start": "node server.js",
+    "start": "node src/server.js",
     "test": "react-scripts test"
 
   },
