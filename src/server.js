@@ -7,7 +7,6 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import env from "dotenv";
 import cors from "cors";
-import serverless from "serverless-http";
 const BASE_URL=process.env.BASE_URL;
 
 const app = express();
@@ -21,7 +20,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-const port = 3001;
+const port = process.env.port || 3001;
 const saltRounds = 10;
 env.config();
 
@@ -342,5 +341,3 @@ app.get("/Leaderboard", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-app.use('./netlify/functions/api',router);
