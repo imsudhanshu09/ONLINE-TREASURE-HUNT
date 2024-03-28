@@ -7,12 +7,14 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import env from "dotenv";
 import cors from "cors";
+import serverless from "serverless-http";
+const BASE_URL=process.env.BASE_URL;
 
 const app = express();
 app.use(express.json())
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://6605a84df2c05805fce87bd3--enchanting-nasturtium-a18806.netlify.app"],
+    origin: [`${BASE_URL}`],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -340,3 +342,5 @@ app.get("/Leaderboard", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+app.use('./netlify/functions/api',router);
