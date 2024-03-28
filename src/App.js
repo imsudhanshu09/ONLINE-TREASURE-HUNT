@@ -23,9 +23,9 @@ function App() {
           <Route path="/" element={<Home1 />} />
           <Route exact path="/Rules" element={<Rules />} />
           <Route exact path="/Account" element={<Admin />} />
-          <Route exact path="/Leaderboard" element={<Leaderboard data={data} />} />
+          <Route exact path="/Leaderboard" element={<Leaderboard />} />
           <Route exact path="/Hints" element={<Hints />} />
-          {/* <Route exact path="/Hints" element={<Countdown />} /> */}
+          <Route exact path="/Countdown" element={<Countdown />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/QuestionPage" element={<QuestionPage />}/> 

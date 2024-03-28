@@ -231,7 +231,7 @@ app.get("/questions", requireLogin, async (req, res) => {
 });
 
 // Add this function to update the last_correct_answer_timestamp in the users table
-const updateLastCorrectAnswerTimestamp = async (userId, answer) => {
+const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
   try {
     // Fetch the user's last answered question ID
     const queryResult = await db.query(
@@ -245,10 +245,10 @@ const updateLastCorrectAnswerTimestamp = async (userId, answer) => {
       "SELECT correct_answer FROM questions WHERE id = $1",
       [lastAnsweredQuestionId]
     );
-    const correctAnswer = correctAnswerResult.rows[0].correct_answer;
+    const correctAnswer = correctAnswerResult.rows[0].correct_answer.toLowerCase();
 
     // Update the last_correct_answer_timestamp if the user's answer was correct
-    if (answer === correctAnswer) {
+    if (userAnswer.toLowerCase() === correctAnswer) {
       await db.query(
         "UPDATE users SET last_correct_answer_timestamp = CURRENT_TIMESTAMP WHERE user_id = $1",
         [userId]
@@ -271,9 +271,10 @@ app.post("/questions/:questionId/answer", async (req, res) => {
       "SELECT correct_answer FROM questions WHERE id = $1",
       [questionId]
     );
-    const correctAnswer = result.rows[0].correct_answer;
+    const correctAnswer = result.rows[0].correct_answer.toLowerCase();
+    const userAnswer = req.body.answer.toLowerCase();
 
-    if (req.body.answer === correctAnswer) {
+    if (userAnswer === correctAnswer) {
       // Update user progress and timestamp
       req.session.userProgress[questionId] = true;
       await db.query(
@@ -281,7 +282,7 @@ app.post("/questions/:questionId/answer", async (req, res) => {
         [questionId, userId]
       );
       // Call function to update timestamp
-      await updateLastCorrectAnswerTimestamp(userId, req.body.answer);
+      await updateLastCorrectAnswerTimestamp(userId, userAnswer);
 
       res.json({ correct: true });
     } else {
@@ -292,6 +293,47 @@ app.post("/questions/:questionId/answer", async (req, res) => {
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
+
+// Route to fetch leaderboard data
+app.get("/Leaderboard", async (req, res) => {
+  try {
+    // SQL query to retrieve leaderboard data
+    const query = `
+      SELECT 
+        username,
+        last_answered_question_id,
+        MIN(last_correct_answer_timestamp) AS first_correct_answer_timestamp
+      FROM 
+        users
+      WHERE 
+        last_correct_answer_timestamp IS NOT NULL
+      GROUP BY 
+        username, last_answered_question_id
+      ORDER BY 
+        last_answered_question_id DESC, 
+        first_correct_answer_timestamp ASC
+      LIMIT 10 
+    `;
+
+    // Execute the query
+    const result = await db.query(query);
+
+    // Assign ranks to the leaderboard entries
+    const leaderboard = result.rows.map((row, index) => ({
+      rank: index + 1,
+      username: row.username,
+      last_answered_question_id: row.last_answered_question_id,
+      first_correct_answer_timestamp: row.first_correct_answer_timestamp,
+    }));
+
+    // Send the leaderboard data as a response
+    res.json({ leaderboard });
+  } catch (error) {
+    console.error("Error fetching leaderboard data:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
 
 
 // Start server

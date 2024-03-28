@@ -38,7 +38,7 @@ const Login = () => {
         console.log('Login response:', response);
         if(response.data.status){
           // Redirect to dashboard or another page upon successful login
-          navigate('/QuestionPage');
+          navigate('/Countdown');
         }
         else{
           setLoginError("Login failed. Please check your credentials.");
