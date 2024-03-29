@@ -7,13 +7,12 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import env from "dotenv";
 import cors from "cors";
-const BASE_URL=process.env.BASE_URL;
 
 const app = express();
 app.use(express.json())
 app.use(
   cors({
-    origin: [`${BASE_URL}`],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   })

@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import './SignUp.css';
+const BASE_URL=process.env.BASE_URL;
 
 const SignUp = () => {
   useEffect(() => {
@@ -34,7 +35,7 @@ const SignUp = () => {
     e.preventDefault();
     console.log("Form submitted with data:", formData);
     try {
-      const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
+      const response = await axios.post(`${BASE_URL}/SignUp`, formData);
         console.log("Server response:",response.data.status);
         navigate('/Login');
       // Reset form after successful signup

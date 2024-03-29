@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './QuestionPage.css'; // Import CSS file
+const BASE_URL=process.env.BASE_URL;
 
 const QuestionPage = () => {
     useEffect(() => {
@@ -27,7 +28,7 @@ const QuestionPage = () => {
 
   const fetchNextQuestion = async () => {
     try {
-      const response = await axios.get('https://online-treasure-hunt-10.onrender.com/questions', { withCredentials: true });
+      const response = await axios.get(`${BASE_URL}/questions`, { withCredentials: true });
       if (response.data.message) {
         // If the response contains a message, it means all questions are answered
         setQuestion(null);
@@ -43,7 +44,7 @@ const QuestionPage = () => {
   
   const handleAnswerSubmit = async () => {
     try {
-      const response = await axios.post(`https://online-treasure-hunt-10.onrender.com/questions/${question.id}/answer`, { answer }, { withCredentials: true });
+      const response = await axios.post(`${BASE_URL}/questions/${question.id}/answer`, { answer }, { withCredentials: true });
       if (response.data.correct) {
         setFeedback('Correct! Moving to the next question.');
         // Fetch the next question after a correct answer

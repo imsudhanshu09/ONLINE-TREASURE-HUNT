@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import axios from "axios";
 import './Leaderboard.css'; // Import CSS for styling
+const BASE_URL=process.env.BASE_URL;
 
 const Leaderboard = () => {
   useEffect(() => {
@@ -24,7 +25,7 @@ const Leaderboard = () => {
 
   const fetchLeaderboardData = async () => {
     try {
-      const response = await axios.get("https://online-treasure-hunt-10.onrender.com/Leaderboard");
+      const response = await axios.get(`${BASE_URL}/Leaderboard`);
       setLeaderboardData(response.data.leaderboard);
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);

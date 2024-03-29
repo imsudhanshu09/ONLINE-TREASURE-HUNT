@@ -121,9 +121,11 @@
   "scripts": {
 
 
-    "start": "node src/server.js",
-    "test": "react-scripts test",
-    "build": "npm run build"
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "test": "react-scripts test"
 
   },
 
