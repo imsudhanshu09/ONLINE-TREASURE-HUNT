@@ -52,6 +52,10 @@ const db = new pg.Client(process.env.DB_URL,{
     database: process.env.PG_DATABASE,
     password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT,
+    ssl: {
+      rejectUnauthorized: true,
+      // Other SSL/TLS options can be specified here if needed
+  }
 });
 db.connect();
 
