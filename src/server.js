@@ -34,7 +34,7 @@ app.use(express.json())
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://master--celebrated-lily-012407.netlify.app/"
+    "https://master--celebrated-lily-012407.netlify.app"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
