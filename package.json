@@ -122,7 +122,8 @@
 
 
     "start": "node src/server.js",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "build": "npm run build"
 
   },
 
