@@ -44,7 +44,7 @@ const QuestionPage = () => {
   
   const handleAnswerSubmit = async () => {
     try {
-      const response = await axios.post('https://online-treasure-hunt-10.onrender.com/questions/${question.id}/answer', { answer }, { withCredentials: true });
+      const response = await axios.post(`https://online-treasure-hunt-10.onrender.com/questions/${question.id}/answer`, { answer }, { withCredentials: true });
       if (response.data.correct) {
         setFeedback('Correct! Moving to the next question.');
         // Fetch the next question after a correct answer
