@@ -8,15 +8,29 @@ import session from "express-session";
 import env from "dotenv";
 import cors from "cors";
 
+
+
 const app = express();
 app.use(express.json())
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000",'https://66070d5c0798463d4bd9c713--magical-puffpuff-b5ca65.netlify.app/'],
     methods: ["GET", "POST"],
     credentials: true,
   })
 );
+// app.use(function(req, res, next) {
+//   // res.header("Access-Control-Allow-Origin", "*");
+//   const allowedOrigins = ['http://localhost:3000', 'https://66070d5c0798463d4bd9c713--magical-puffpuff-b5ca65.netlify.app/', 'https://66070d5c0798463d4bd9c713--magical-puffpuff-b5ca65.netlify.app/'];
+//   const origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//        res.setHeader('Access-Control-Allow-Origin', origin);
+//   }
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//   res.header("Access-Control-Allow-credentials", true);
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+//   next();
+//     });
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.port || 3001;

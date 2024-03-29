@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 import './Login.css';
-const BASE_URL=process.env.BASE_URL;
+// const BASE_URL=process.env.BASE_URL;
 
 const Login = () => {
   useEffect(() => {
@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     console.log("Form submitted with data:", formData);
     try {
-      const response = await axios.post(`${BASE_URL}/Login`, formData);
+      const response = await axios.post('https://online-treasure-hunt-10.onrender.com/Login', formData);
         console.log('Login response:', response);
         if(response.data.status){
           // Redirect to dashboard or another page upon successful login
@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/Login`).then((response) => {
+    axios.get('https://online-treasure-hunt-10.onrender.com/Login').then((response) => {
       if (response.data.loggedIn == true) {
         setLoginError(response.data.user);
       }
