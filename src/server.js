@@ -116,6 +116,8 @@ const initializeUserProgress = (req, res, next) => {
 app.use(initializeUserProgress);
 
 const requireLogin = (req, res, next) => {
+  console.log(req.session)
+  console.log(req.session.userId)
   if (!req.session.userId) {
     return res.status(401).send({ error: "Unauthorized" });
   }
