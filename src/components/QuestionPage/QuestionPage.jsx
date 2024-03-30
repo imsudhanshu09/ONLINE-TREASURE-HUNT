@@ -44,18 +44,23 @@ const QuestionPage = () => {
   
   const handleAnswerSubmit = async () => {
     try {
-      const response = await axios.post(`https://online-treasure-hunt-10.onrender.com/questions/${question.id}/answer`, { answer }, { withCredentials: true });
+      const response = await axios.post(
+        `https://online-treasure-hunt-10.onrender.com/questions/${question.id}/answer`,
+        { answer },
+        { withCredentials: true }
+      );
       if (response.data.correct) {
         setFeedback('Correct! Moving to the next question.');
         // Fetch the next question after a correct answer
-        fetchNextQuestion();
-        console.log("heello")
+        await fetchNextQuestion(); // Await here to ensure next question is fetched before resetting state
+        console.log("question fetched.")
         setAnswer('');
       } else {
         setFeedback('Incorrect. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
+      setFeedback('An error occurred. Please try again.'); // Update feedback for error case
     }
   };
 
