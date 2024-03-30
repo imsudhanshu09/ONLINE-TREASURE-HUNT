@@ -122,10 +122,19 @@
 
 
     "start": "node src/server.js",
+
+
     "predeploy": "npm run build",
+
+
     "build": "react-scripts build",
+
+
     "eject": "react-scripts eject",
+
+
     "test": "react-scripts test"
+
 
   },
 
