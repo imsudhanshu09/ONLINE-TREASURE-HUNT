@@ -51,18 +51,25 @@ const QuestionPage = () => {
       );
       if (response.data.correct) {
         setFeedback('Correct! Moving to the next question.');
-        // Fetch the next question after a correct answer
-        await fetchNextQuestion(); // Await here to ensure next question is fetched before resetting state
-        console.log("question fetched.")
+        // Update state and then fetch the next question
         setAnswer('');
+        setQuestion(null); // Reset question to trigger re-render
       } else {
         setFeedback('Incorrect. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
-      setFeedback('An error occurred. Please try again.'); // Update feedback for error case
+      setFeedback('An error occurred. Please try again.');
     }
   };
+  
+  // After the state is updated, fetch the next question
+  useEffect(() => {
+    if (feedback === 'Correct! Moving to the next question.') {
+      fetchNextQuestion();
+    }
+  }, [feedback]);
+  
 
   return (
     <div className="container">
