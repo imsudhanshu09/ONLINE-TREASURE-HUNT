@@ -57,19 +57,24 @@ const port = process.env.port || 3001;
 const saltRounds = 10;
 env.config();
 
-app.use(
-    session({
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: true,
-      cookie: {
-        maxAge: 72 * 60 * 60 * 1000, // 72 hrs
-        httpOnly: false,
-        secure: process.env.NODE_ENV === 'production', // Enable this if using HTTPS
-        // sameSite: "strict",
-      }  
-    })
-);
+const sessionOptions = {
+  secret: "TOPSECRETWORD",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 72 * 60 * 60 * 1000, // 72 hrs
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production', // Enable this if using HTTPS
+    // sameSite: "strict",
+  }
+};
+
+// Check if the environment is production and if so, set the secure flag for cookies
+if (process.env.NODE_ENV === 'production') {
+  sessionOptions.cookie.secure = true;
+}
+
+app.use(session(sessionOptions));
 
 // Middleware
 app.use(bodyParser.json());
