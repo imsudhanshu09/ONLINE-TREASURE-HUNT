@@ -35,15 +35,13 @@ const QuestionPage = () => {
         setQuestion(null);
         setFeedback(response.data.message);
       } else {
-        const { id, question_text, image_url } = response.data; // Destructure the response data
-        setQuestion({ id, question_text, image_url }); // Update the question state
+        setQuestion(response.data);
         setFeedback('');
       }
     } catch (error) {
       console.error('Error fetching next question:', error);
     }
   };
-  
   
   
   const handleAnswerSubmit = async () => {
@@ -57,8 +55,8 @@ const QuestionPage = () => {
         setFeedback('Correct! Moving to the next question.');
         setAnswer('');
         // Introduce a delay before fetching the next question
-        setTimeout(fetchNextQuestion, 1000); // Adjust delay time as needed
-        console.log("hi")
+        fetchNextQuestion(); // Adjust delay time as needed
+        console.log("question fetched")
       } else {
         setFeedback('Incorrect. Please try again.');
       }
