@@ -145,9 +145,10 @@ app.post("/Login", async (req, res) => {
 
       const match = await bcrypt.compare(password, storedHashedPassword);
         if (match) {
-          req.session.userProgress[user.id] = req.session.userProgress[user.id] || {};
-          req.session.user = user;
           req.session.userId = user.user_id;
+          req.session.userProgress[user.user_id] = req.session.userProgress[user.user_id] || {};
+          req.session.user = user;
+          
           console.log("userId assigned to session:", req.session.userId);     
           res.send({status:true, userId: user.id});
         } else {
