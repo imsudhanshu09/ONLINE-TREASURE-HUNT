@@ -284,27 +284,34 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
       "SELECT last_answered_question_id FROM users WHERE user_id = $1",
       [userId]
     );
-    const lastAnsweredQuestionId = queryResult.rows[0].last_answered_question_id;
 
-    // Fetch the correct answer for the last answered question
-    const correctAnswerResult = await db.query(
-      "SELECT correct_answer FROM questions WHERE id = $1",
-      [lastAnsweredQuestionId]
-    );
-    const correctAnswer = correctAnswerResult.rows[0].correct_answer.toLowerCase();
+    if (queryResult.rows.length > 0) {
+      const lastAnsweredQuestionId = queryResult.rows[0].last_answered_question_id;
 
-    // Update the last_correct_answer_timestamp if the user's answer was correct
-    if (userAnswer.toLowerCase() === correctAnswer) {
-      await db.query(
-        "UPDATE users SET last_correct_answer_timestamp = CURRENT_TIMESTAMP WHERE user_id = $1",
-        [userId]
-      );
+      if (lastAnsweredQuestionId !== null && lastAnsweredQuestionId !== undefined) {
+        // Fetch the correct answer for the last answered question
+        const correctAnswerResult = await db.query(
+          "SELECT correct_answer FROM questions WHERE id = $1",
+          [lastAnsweredQuestionId]
+        );
+
+        const correctAnswer = correctAnswerResult.rows[0].correct_answer.toLowerCase();
+
+        // Update the last_correct_answer_timestamp if the user's answer was correct
+        if (userAnswer.toLowerCase() === correctAnswer) {
+          await db.query(
+            "UPDATE users SET last_correct_answer_timestamp = CURRENT_TIMESTAMP WHERE user_id = $1",
+            [userId]
+          );
+        }
+      }
     }
   } catch (error) {
     console.error("Error updating last_correct_answer_timestamp:", error);
     // Handle the error
   }
 };
+
 
 
 // Modify the route for handling answer submission to call the function for updating timestamp
