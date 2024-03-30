@@ -67,6 +67,7 @@ const QuestionPage = () => {
   useEffect(() => {
     if (feedback === 'Correct! Moving to the next question.') {
       fetchNextQuestion();
+      console.log("here it is")
     }
   }, [feedback]);
   
