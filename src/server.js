@@ -220,8 +220,8 @@ app.post("/SignUp", async (req, res) => {
 //   next();
 // };
 
-// Define route to fetch questions
-app.get("/questions", requireLogin, async (req, res) => {
+// Define route to fetch questions  requireLogin,
+app.get("/questions", async (req, res) => {
   try {
     // Retrieve user's ID from the session
     const userId = user.user_id;
