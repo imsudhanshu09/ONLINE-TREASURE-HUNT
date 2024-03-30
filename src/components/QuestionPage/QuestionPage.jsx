@@ -51,9 +51,10 @@ const QuestionPage = () => {
       );
       if (response.data.correct) {
         setFeedback('Correct! Moving to the next question.');
-        // Update state and then fetch the next question
         setAnswer('');
-        setQuestion(null); // Reset question to trigger re-render
+        // Introduce a delay before fetching the next question
+        setTimeout(fetchNextQuestion, 1000); // Adjust delay time as needed
+        console.log("hi")
       } else {
         setFeedback('Incorrect. Please try again.');
       }
@@ -61,16 +62,7 @@ const QuestionPage = () => {
       console.error('Error submitting answer:', error);
       setFeedback('An error occurred. Please try again.');
     }
-  };
-  
-  // After the state is updated, fetch the next question
-  useEffect(() => {
-    if (feedback === 'Correct! Moving to the next question.') {
-      fetchNextQuestion();
-      console.log("here it is")
-    }
-  }, [feedback]);
-  
+  };  
 
   return (
     <div className="container">
