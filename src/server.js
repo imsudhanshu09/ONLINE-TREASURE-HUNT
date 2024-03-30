@@ -224,7 +224,7 @@ app.post("/SignUp", async (req, res) => {
 app.get("/questions", requireLogin, async (req, res) => {
   try {
     // Retrieve user's ID from the session
-    const userId = req.session.userId;
+    const userId = user.user_id;
 
     // Retrieve user's progress from the session
     const userProgress = req.session.userProgress[userId] || {};
