@@ -12,13 +12,13 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json())
-// app.use(
-//   cors({
-//     origin: ["http://localhost:3000",'https://66070d5c0798463d4bd9c713--magical-puffpuff-b5ca65.netlify.app/'],
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["http://localhost:3000","https://celebrated-lily-012407.netlify.app"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 // app.use(function(req, res, next) {
 //   // res.header("Access-Control-Allow-Origin", "*");
 //   const allowedOrigins = ['http://localhost:3000', 'https://66070d5c0798463d4bd9c713--magical-puffpuff-b5ca65.netlify.app/', 'https://66070d5c0798463d4bd9c713--magical-puffpuff-b5ca65.netlify.app/'];
@@ -65,7 +65,7 @@ app.use(
       cookie: {
         maxAge: 72 * 60 * 60 * 1000, // 72 hrs
         httpOnly: false,
-        // secure: true, // Enable this if using HTTPS
+        secure: true, // Enable this if using HTTPS
         // sameSite: "strict",
       }  
     })
