@@ -28,9 +28,10 @@ const QuestionPage = () => {
 
   const fetchNextQuestion = async () => {
     try {
+      console.log("Fetching next question...");
       const response = await axios.get('https://online-treasure-hunt-10.onrender.com/questions', { withCredentials: true });
+      console.log("Response:", response.data); // Log response data
       if (response.data.message) {
-        // If the response contains a message, it means all questions are answered
         setQuestion(null);
         setFeedback(response.data.message);
       } else {
@@ -38,9 +39,10 @@ const QuestionPage = () => {
         setFeedback('');
       }
     } catch (error) {
-      console.error('Error fetching question:', error);
+      console.error('Error fetching next question:', error);
     }
   };
+  
   
   const handleAnswerSubmit = async () => {
     try {
