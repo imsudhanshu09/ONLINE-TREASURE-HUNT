@@ -35,13 +35,15 @@ const QuestionPage = () => {
         setQuestion(null);
         setFeedback(response.data.message);
       } else {
-        setQuestion(response.data);
+        const { id, question_text, image_url } = response.data; // Destructure the response data
+        setQuestion({ id, question_text, image_url }); // Update the question state
         setFeedback('');
       }
     } catch (error) {
       console.error('Error fetching next question:', error);
     }
   };
+  
   
   
   const handleAnswerSubmit = async () => {
