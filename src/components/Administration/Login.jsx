@@ -46,7 +46,7 @@ const Login = () => {
       });
       const response=await resp.json();
         console.log('Login response11:', response);
-        if(response.data.status){
+        if(response.status){
           // Redirect to dashboard or another page upon successful login
           navigate('/Countdown');
         }

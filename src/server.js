@@ -165,13 +165,19 @@ app.use(express.static("public"));
 //   }
 //   next();
 // };
-const requireLogin = (req, res, next) => {
-  const test=cookie['']
+const requireLogin = async(req, res, next) => {
+  const token=cookie['test'];
+ const data=jwt.verify(token,"shhhhh");
+
+  
+
   console.log("request session: ",req.session)
   console.log("userid: ",req.session.userId)
-  if (!req.session.userId) {
+  if (!data) {
+   
     return res.status(401).send({ error: "Unauthorized" });
   }
+  req.session.userId=data.userId;
   next();
 };
 
@@ -207,7 +213,8 @@ app.post("/Login", async (req, res) => {
           //  /==============/= 
           const userinfo={
             name:email,
-            password:storedHashedPassword
+            password:storedHashedPassword,
+            userId:user.user_id
           }
             var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
 
