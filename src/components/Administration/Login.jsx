@@ -35,8 +35,17 @@ const Login = () => {
     e.preventDefault();
     console.log("Form submitted with data:", formData);
     try {
-      const response = await axios.post('http://localhost:3001/Login', formData);
-        console.log('Login response:', response);
+      // const response = await axios.post('http://localhost:3001/Login', formData);
+      const resp = await fetch("http://localhost:3001/Login", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials:'include',
+        body: JSON.stringify(formData) // Convert formdata to JSON string
+      });
+      const response=await resp.json();
+        console.log('Login response11:', response);
         if(response.data.status){
           // Redirect to dashboard or another page upon successful login
           navigate('/Countdown');

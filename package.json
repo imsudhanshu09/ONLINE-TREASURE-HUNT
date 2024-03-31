@@ -79,6 +79,9 @@
     "express-session": "^1.18.0",
 
 
+    "jsonwebtoken": "^9.0.2",
+
+
     "overlay-navbar": "^1.2.3",
 
 
