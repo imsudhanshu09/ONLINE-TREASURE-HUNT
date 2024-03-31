@@ -127,7 +127,7 @@
   "scripts": {
 
 
-    "start": "node src/server.js",
+    "start": "react-scripts start",
 
 
     "predeploy": "npm run build",

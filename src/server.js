@@ -8,6 +8,7 @@ import session from "express-session";
 import env from "dotenv";
 import cors from "cors";
 import jwt from 'jsonwebtoken';
+import { CollectionsBookmarkOutlined } from "@mui/icons-material";
 
 //import pgSession from 'connect-pg-simple';
 
@@ -17,9 +18,9 @@ app.use(express.json())
 app.use(
   cors({
     origin: ["http://localhost:3000"
-    ,"https://celebrated-lily-012407.netlify.app"
+    // ,"https://celebrated-lily-012407.netlify.app"
   ],
-    methods: ["GET", "POST"],
+    // methods: ["GET", "POST"],
     credentials: true,
   })
 );
@@ -35,26 +36,26 @@ app.use(
 //   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
 //   next();
 //     });
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://celebrated-lily-012407.netlify.app"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.setHeader("Access-Control-Allow-Private-Network", true);
-  //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
-  res.setHeader("Access-Control-Max-Age", 7200);
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://celebrated-lily-012407.netlify.app"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   res.setHeader("Access-Control-Allow-Private-Network", true);
+//   //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
+//   res.setHeader("Access-Control-Max-Age", 7200);
 
-  next();
-});
+//   next();
+// });
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.port || 3001;
@@ -71,6 +72,7 @@ const db = new pg.Client({
   port: process.env.PG_PORT,
   ssl: {
     rejectUnauthorized: true,
+   
     // Other SSL/TLS options can be specified here if needed
 }
 });
@@ -166,18 +168,19 @@ app.use(express.static("public"));
 //   next();
 // };
 const requireLogin = async(req, res, next) => {
-  const token=cookie['test'];
+  const token=req.cookies['test']||false;
+  console.log("token got ",token);
+
  const data=jwt.verify(token,"shhhhh");
 
-  
-
-  console.log("request session: ",req.session)
-  console.log("userid: ",req.session.userId)
   if (!data) {
    
     return res.status(401).send({ error: "Unauthorized" });
   }
-  req.session.userId=data.userId;
+
+  req.userId=data.userId;
+  console.log("request user id: ",req.userId)
+  // console.log("userid: ",req.session.userId)
   next();
 };
 
@@ -208,23 +211,22 @@ app.post("/Login", async (req, res) => {
           // req.session.user = user;
           req.session.userId = user.user_id;
           console.log("userId assigned to session:", req.session.userId);     
-          res.send({status:true, userId: user.id});
 
           //  /==============/= 
           const userinfo={
             name:email,
-            password:storedHashedPassword,
             userId:user.user_id
           }
             var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
+            console.log(token);
 
-           await res.cookie("test",token,{httpOnly:true,maxAge:24*60*60*1000});
+           res.cookie("test",token,{httpOnly:true,maxAge:24*60*60*1000});
             // console.log()
             // res.cookie("test","sudhansu");
             // var decoded = jwt.verify(token, 'shhhhh');
             // console.log(decoded.foo) // bar
            //  /==============/= 
-            res.send({ status: true, userId: user.user_id });
+            res.send({ status: true, userId: user.user_id,check:"hello" });
         
         }  else {
           console.log("this is error",err);
@@ -266,7 +268,14 @@ app.post("/SignUp", async (req, res) => {
             `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *`,
             [username, email, hash]
             );
-            const user = result.rows[0];          
+            const user = result.rows[0];
+            const userinfo={
+              name:email,
+              userId:user.user_id
+            }
+              var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
+  
+             res.cookie("test",token,{httpOnly:true,maxAge:24*60*60*1000});         
             if (err) {
               console.error("Error logging in:", err);
             } else {
@@ -286,15 +295,15 @@ app.post("/SignUp", async (req, res) => {
 
 // Define route to fetch questions  requireLogin,
 app.get("/questions", requireLogin, async (req, res) => {
-  console.log("Session in /questions route:", req.session);
+  console.log("Session in /questions route:", req.userId);
   try {
     // Retrieve user's ID from the session
-    const userId = req.session.userId;
+    const userId = req.userId;
     console.log("User ID:", userId);
 
     // Retrieve user's progress from the session
-    const userProgress = req.session.userProgress[userId] || {};
-    console.log("User Progress:", userProgress);
+    // const userProgress = req.session.userProgress[userId] || {};
+    // console.log("User Progress:", userProgress);
 
     // Retrieve the last answered question ID from the users table
     const lastAnsweredQuestionResult = await db.query(
@@ -358,7 +367,7 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
     );
     console.log("Query Result:", queryResult.rows);
 
-    if (queryResult.rows.length > 0) {
+    if (queryResult.rows.length >= 0) {
       const lastAnsweredQuestionId = queryResult.rows[0].last_answered_question_id;
       console.log("Last Answered Question ID:", lastAnsweredQuestionId);
 
@@ -394,6 +403,7 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
 
 // Modify the route for handling answer submission to call the function for updating timestamp
 app.post("/questions/:questionId/answer", async (req, res) => {
+  console.log("this is called");
   const { questionId } = req.params;
   const userId = req.session.userId;
 
@@ -410,11 +420,11 @@ app.post("/questions/:questionId/answer", async (req, res) => {
     console.log("Correct Answer:", correctAnswer);
 
     const userAnswer = req.body.answer.toLowerCase();
-    console.log("User Answer:", userAnswer);
+    console.log("User Answer:", userAnswer,"correct answer ",correctAnswer);
 
     if (userAnswer === correctAnswer) {
       // Update user progress and timestamp
-      req.session.userProgress[questionId] = true;
+      // req.session.userProgress[questionId] = true;
       await db.query(
         "UPDATE users SET last_answered_question_id = $1 WHERE user_id = $2",
         [questionId, userId]
@@ -425,7 +435,7 @@ app.post("/questions/:questionId/answer", async (req, res) => {
       await updateLastCorrectAnswerTimestamp(userId, userAnswer);
       console.log("Last correct answer timestamp updated successfully.");
 
-      res.json({ correct: true });
+      res.send({ correct: true });
     } else {
       res.json({ correct: false });
     }
