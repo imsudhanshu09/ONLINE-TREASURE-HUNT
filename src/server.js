@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import env from "dotenv";
 import cors from "cors";
-
+import pgSession from 'connect-pg-simple';
 
 
 const app = express();
@@ -57,7 +57,20 @@ const port = process.env.port || 3001;
 const saltRounds = 10;
 env.config();
 
+const pgSessionStore = pgSession(session);
+
 const sessionOptions = {
+  store: new pgSessionStore({
+    conObject: {
+      connectionString: process.env.DB_URL, // Your PostgreSQL connection string
+      ssl: {
+        rejectUnauthorized: true,
+        // Other SSL/TLS options can be specified here if needed
+      }
+    },
+    tableName: 'sessions', // Name of the table to store sessions
+    ttl: 72 * 60 * 60,
+  }),
   secret: "TOPSECRETWORD",
   resave: false,
   saveUninitialized: true,
@@ -68,11 +81,6 @@ const sessionOptions = {
     // sameSite: "strict",
   }
 };
-
-// Check if the environment is production and if so, set the secure flag for cookies
-if (process.env.NODE_ENV === 'production') {
-  sessionOptions.cookie.secure = true;
-}
 
 app.use(session(sessionOptions));
 
@@ -102,17 +110,23 @@ const initializeUserProgress = (req, res, next) => {
   if (!req.session.userProgress) {
     req.session.userProgress = {};
   }
-
+  
   const userId = req.session.userId;
 
-  if (!req.session.userProgress[userId]) {
-    req.session.userProgress[userId] = {}; // Initialize progress for the user if it doesn't exist
+  if (!userId) {
+    // New user, initialize progress starting from question 1
+    req.session.userProgress = { 1: true }; // Assuming question 1 has ID 1
+  } else {
+    // Returning user, retrieve progress from session
+    if (!req.session.userProgress[userId]) {
+      req.session.userProgress[userId] = {};
+    }
   }
-
+  
   next();
 };
 
-app.use(initializeUserProgress);
+// app.use(initializeUserProgress);
 
 const requireLogin = (req, res, next) => {
   console.log(req.session)
@@ -132,7 +146,7 @@ app.get("/Login", (req, res) => {
 });
 
 // Routes
-app.post("/Login", async (req, res) => {
+app.post("/Login",initializeUserProgress, async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -215,7 +229,7 @@ app.post("/SignUp", async (req, res) => {
 // };
 
 // Define route to fetch questions  requireLogin,
-app.get("/questions", initializeUserProgress, async (req, res) => {
+app.get("/questions", requireLogin, initializeUserProgress, async (req, res) => {
   try {
     // Retrieve user's ID from the session
     const userId = req.session.userId;

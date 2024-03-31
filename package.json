@@ -11,7 +11,7 @@
 
 
   "type": "module",
-  
+
 
   "dependencies": {
 
@@ -59,6 +59,9 @@
 
 
     "body-parser": "^1.20.2",
+
+
+    "connect-pg-simple": "^9.0.1",
 
 
     "cookie-parser": "^1.4.6",
