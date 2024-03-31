@@ -25,6 +25,7 @@ const QuestionPage = () => {
   useEffect(() => {
     fetchNextQuestion();
   }, []);
+  axios.defaults.withCredentials = true;
 
   const fetchNextQuestion = async () => {
     try {

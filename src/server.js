@@ -57,6 +57,21 @@ const port = process.env.port || 3001;
 const saltRounds = 10;
 env.config();
 
+// Database configuration
+const db = new pg.Client({
+  connectionString: process.env.DB_URL,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+  ssl: {
+    rejectUnauthorized: true,
+    // Other SSL/TLS options can be specified here if needed
+}
+});
+db.connect();
+
 const pgSessionStore = pgSession(session);
 
 const sessionOptions = {
@@ -69,16 +84,16 @@ const sessionOptions = {
       }
     },
     tableName: 'sessions', // Name of the table to store sessions
-    ttl: 72 * 60 * 60,
+    ttl: 72 * 60 * 60,
   }),
-  secret: "TOPSECRETWORD",
+  secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     maxAge: 72 * 60 * 60 * 1000, // 72 hrs
-    httpOnly: false,
-    secure: process.env.NODE_ENV === 'production', // Enable this if using HTTPS
-    // sameSite: "strict",
+    httpOnly: true,
+    secure: true, // Enable this if using HTTPS
+    sameSite: "None",
   }
 };
 
@@ -91,32 +106,24 @@ app.use(express.static("public"));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-// Database configuration
-const db = new pg.Client(process.env.DB_URL,{
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-    ssl: {
-      rejectUnauthorized: true,
-      // Other SSL/TLS options can be specified here if needed
-  }
-});
-db.connect();
-
 // Middleware function to initialize user progress in session
 const initializeUserProgress = (req, res, next) => {
   if (!req.session.userProgress) {
     req.session.userProgress = {};
   }
+  console.log("Session object in initializeUserProgress:", req.session);
+  console.log("User ID in initializeUserProgress before:", req.session.userId);
   
   const userId = req.session.userId;
 
+  console.log("User ID in initializeUserProgress:", userId);
+
   if (!userId) {
+    console.log("User ID not found in session. Initializing progress for new user.");
     // New user, initialize progress starting from question 1
-    req.session.userProgress = { 1: true }; // Assuming question 1 has ID 1
+    req.session.userProgress = { 1: true }; // Example: Initialize progress for question 1
   } else {
+    console.log("Returning user. Progress already initialized.");
     // Returning user, retrieve progress from session
     if (!req.session.userProgress[userId]) {
       req.session.userProgress[userId] = {};
@@ -126,16 +133,18 @@ const initializeUserProgress = (req, res, next) => {
   next();
 };
 
+
+
 // app.use(initializeUserProgress);
 
-const requireLogin = (req, res, next) => {
-  console.log(req.session)
-  console.log(req.session.userId)
-  if (!req.session.userId) {
-    return res.status(401).send({ error: "Unauthorized" });
-  }
-  next();
-};
+// const requireLogin = (req, res, next) => {
+//   console.log(req.session)
+//   console.log(req.session.userId)
+//   if (!req.session.userId) {
+//     return res.status(401).send({ error: "Unauthorized" });
+//   }
+//   next();
+// };
 
 app.get("/Login", (req, res) => {
   if (req.session.user) {
@@ -160,10 +169,9 @@ app.post("/Login",initializeUserProgress, async (req, res) => {
 
       const match = await bcrypt.compare(password, storedHashedPassword);
         if (match) {
-          req.session.userId = user.user_id;
           req.session.userProgress[user.user_id] = req.session.userProgress[user.user_id] || {};
           req.session.user = user;
-          
+          req.session.userId = user.user_id;
           console.log("userId assigned to session:", req.session.userId);     
           res.send({status:true, userId: user.id});
         } else {
@@ -178,6 +186,7 @@ app.post("/Login",initializeUserProgress, async (req, res) => {
     console.log(err);
   }
 });
+app.use(initializeUserProgress);
 
 app.post("/SignUp", async (req, res) => {
   const username=req.body.username;
@@ -221,15 +230,17 @@ app.post("/SignUp", async (req, res) => {
 });
 
 // Middleware function to check if user is logged in
-// const requireLogin = (req, res, next) => {
-//   if (!req.session.userId) {
-//     return res.status(401).send({ error: "Unauthorized" });
-//   }
-//   next();
-// };
+const requireLogin = (req, res, next) => {
+  console.log("request session: ",req.session)
+  console.log("userid: ",req.session.userId)
+  if (!req.session.userId) {
+    return res.status(401).send({ error: "Unauthorized" });
+  }
+  next();
+};
 
 // Define route to fetch questions  requireLogin,
-app.get("/questions", requireLogin, initializeUserProgress, async (req, res) => {
+app.get("/questions",  initializeUserProgress, requireLogin, async (req, res) => {
   try {
     // Retrieve user's ID from the session
     const userId = req.session.userId;
