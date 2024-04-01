@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(
   cors({
     origin: ["http://localhost:3000"
-    ,"https://celebrated-lily-012407.netlify.app"
+    ,"https://onlinetreasurehunt2024.netlify.app"
   ],
     // methods: ["GET", "POST"],
     credentials: true,
