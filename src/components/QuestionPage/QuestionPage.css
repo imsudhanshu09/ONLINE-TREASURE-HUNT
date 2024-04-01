@@ -30,12 +30,15 @@
     font-size: 40px;
     margin-bottom: 20px; 
     color: #fb6731; /* Darker title color */
+    margin-left: auto;
 }
 
 /* Increase margin for space */
 .question-text {
     font-size: 18px;
     margin-bottom: 30px; 
+    margin-left: auto;
+
 }
 
 /* Increase input box size */
@@ -48,8 +51,13 @@
     background-color: #070606; /* Light gray background */
     color: #e8dcdc; /* Dark text color */
 }
-
+/* mmm */
 .question-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* max-width:550px; */
+    /* margin-left: 30px; */
     max-width: 100%;
     height: auto;
     margin-bottom: 20px;

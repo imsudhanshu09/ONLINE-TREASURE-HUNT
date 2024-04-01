@@ -60,10 +60,16 @@ const QuestionPage = () => {
         console.log("question fetched")
       } else {
         setFeedback('Incorrect. Please try again.');
+        setTimeout(() => {
+          setFeedback('');
+        }, 2000);
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
       setFeedback('An error occurred. Please try again.');
+      setTimeout(() => {
+        setFeedback('');
+      }, 2000);
     }
   };  
 
@@ -87,7 +93,12 @@ const QuestionPage = () => {
             <input 
                 type="text" 
                 value={answer} 
-                onChange={(e) => setAnswer(e.target.value)} 
+                onChange={(e) => setAnswer(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                      handleAnswerSubmit();
+                  }
+              }}
                 className="answer-input"
                 placeholder="Type your answer here..." 
             />
