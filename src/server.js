@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(
   cors({
     origin: ["http://localhost:3000"
-    // ,"https://celebrated-lily-012407.netlify.app"
+    ,"https://celebrated-lily-012407.netlify.app"
   ],
     // methods: ["GET", "POST"],
     credentials: true,
@@ -78,7 +78,11 @@ const db = new pg.Client({
 });
 db.connect();
 app.get('/sudhansu',(req,resp)=>{
-  resp.cookie("test","sudhansu");
+  resp.cookie("test","sudhansu",{
+    httpOnly:false, 
+    sameSite: "Node",
+    secure:true
+  });
   resp.send("data");
 })
 // const pgSessionStore = pgSession(session);
@@ -170,12 +174,12 @@ app.use(express.static("public"));
 const requireLogin = async(req, res, next) => {
   const token=req.cookies['test']||false;
   console.log("token got ",token);
-
- const data=jwt.verify(token,"shhhhh");
-
+if(!token)
+{return res.status(401).send({ error: "Unauthorized1" });}
+const data=jwt.verify(token,"shhhhh");
   if (!data) {
    
-    return res.status(401).send({ error: "Unauthorized" });
+    return res.status(401).send({ error: "Unauthorized2" });
   }
 
   req.userId=data.userId;
@@ -220,7 +224,13 @@ app.post("/Login", async (req, res) => {
             var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
             console.log(token);
 
-           res.cookie("test",token,{httpOnly:true,maxAge:24*60*60*1000});
+           res.cookie("test",token,{
+            // httpOnly:true,
+            maxAge:24*60*60*1000,
+            httpOnly:false, 
+            sameSite: "None",
+            secure:true
+          });
             // console.log()
             // res.cookie("test","sudhansu");
             // var decoded = jwt.verify(token, 'shhhhh');
@@ -275,7 +285,13 @@ app.post("/SignUp", async (req, res) => {
             }
               var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
   
-             res.cookie("test",token,{httpOnly:true,maxAge:24*60*60*1000});         
+              res.cookie("test",token,{
+                // httpOnly:true,
+                maxAge:24*60*60*1000,
+                httpOnly:false, 
+                sameSite: "None",
+                secure:true
+              });         
             if (err) {
               console.error("Error logging in:", err);
             } else {
@@ -311,7 +327,7 @@ app.get("/questions", requireLogin, async (req, res) => {
       [userId]
     );
     const lastAnsweredQuestionId = lastAnsweredQuestionResult.rows[0]?.last_answered_question_id;
-    console.log("Last Answered Question ID:", lastAnsweredQuestionId);
+    console.log("Last Answered Question ID1:", lastAnsweredQuestionId);
 
     // Find the next unanswered question ID, starting from the last answered question
     let nextQuestionId;
@@ -367,9 +383,9 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
     );
     console.log("Query Result:", queryResult.rows);
 
-    if (queryResult.rows.length >= 0) {
+    if (queryResult.rows.length > 0) {
       const lastAnsweredQuestionId = queryResult.rows[0].last_answered_question_id;
-      console.log("Last Answered Question ID:", lastAnsweredQuestionId);
+      console.log("Last Answered Question ID2:", lastAnsweredQuestionId);
 
       if (lastAnsweredQuestionId !== null && lastAnsweredQuestionId !== undefined) {
         // Fetch the correct answer for the last answered question
@@ -398,14 +414,12 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
   }
 };
 
-
-
-
 // Modify the route for handling answer submission to call the function for updating timestamp
-app.post("/questions/:questionId/answer", async (req, res) => {
+app.post("/questions/:questionId/answer", requireLogin, async (req, res) => {
   console.log("this is called");
   const { questionId } = req.params;
-  const userId = req.session.userId;
+  const userId = req.userId;
+  console.log("USER ID2: ",userId)
 
   try {
     console.log("Handling answer submission...");

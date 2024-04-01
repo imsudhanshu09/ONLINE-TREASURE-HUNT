@@ -31,7 +31,7 @@ const QuestionPage = () => {
     try {
       console.log("Fetching next question...");
       const response = await axios.get('http://localhost:3001/questions', { withCredentials: true });
-      console.log("Response:", response.data); // Log response data
+      //console.log("Response:", response.data); // Log response data
       if (response.data.message) {
         setQuestion(null);
         setFeedback(response.data.message);
