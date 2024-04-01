@@ -117,7 +117,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 72 * 60 * 60 * 1000, // 72 hrs
+      maxAge: 144 * 60 * 60 * 1000, // 72 hrs
       httpOnly: false,
       // secure: true, // Enable this if using HTTPS
       // sameSite: "strict",
@@ -226,7 +226,7 @@ app.post("/Login", async (req, res) => {
 
            res.cookie("test",token,{
             // httpOnly:true,
-            maxAge:24*60*60*1000,
+            maxAge:144*60*60*1000,
             httpOnly:false, 
             sameSite: "None",
             secure:true
@@ -287,7 +287,7 @@ app.post("/SignUp", async (req, res) => {
   
               res.cookie("test",token,{
                 // httpOnly:true,
-                maxAge:24*60*60*1000,
+                maxAge:144*60*60*1000,
                 httpOnly:false, 
                 sameSite: "None",
                 secure:true

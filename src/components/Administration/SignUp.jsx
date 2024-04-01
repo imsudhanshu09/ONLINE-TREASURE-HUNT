@@ -25,6 +25,7 @@ const SignUp = () => {
     password: '',
     confirmPassword: ''
   });
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +35,11 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted with data:", formData);
+    if (formData.password !== formData.confirmPassword) {
+      // If passwords don't match, set passwordsMatch to false and return
+      setPasswordsMatch(false);
+      return;
+    }
     try {
       const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
         console.log("Server response:",response.data.status);
@@ -71,7 +77,7 @@ const SignUp = () => {
           <input
             type="email"
             id="email"
-            placeholder='MIS@branch.iiitp.ac.in'
+            placeholder='abc@gmail.com'
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -103,6 +109,9 @@ const SignUp = () => {
             onChange={handleChange}
             required
           />
+          {!passwordsMatch && (
+            <p className="error-message">Passwords do not match!</p>
+          )}
         </div>
         <button type="submit">Sign Up</button>
       </form>

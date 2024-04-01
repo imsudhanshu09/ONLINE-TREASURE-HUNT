@@ -139,6 +139,9 @@ function Admin() {
       <div className="navbar">
         <ul>
           <li>
+            <Link to="/Countdown" className="centered-link questions-link">Questions</Link>
+          </li>
+          <li>
             <Link to="/SignUp">★ Sign Up</Link>
           </li>
           <li>

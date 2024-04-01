@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './QuestionPage.css'; // Import CSS file
 // const BASE_URL=process.env.BASE_URL;
 
 const QuestionPage = () => {
+  const navigate = useNavigate();
     useEffect(() => {
         // Create stars dynamically
         const container = document.querySelector('.background');
@@ -40,7 +42,12 @@ const QuestionPage = () => {
         setFeedback('');
       }
     } catch (error) {
-      console.error('Error fetching next question:', error);
+      if (error.response && error.response.status === 401) {
+        // User is not authenticated, redirect to signup page
+        navigate('/SignUp');
+      } else {  
+        console.error('Error fetching next question:', error);
+      }  
     }
   };
   
