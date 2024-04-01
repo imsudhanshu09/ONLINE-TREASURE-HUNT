@@ -395,11 +395,11 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
         );
         console.log("Correct Answer Result:", correctAnswerResult.rows);
 
-        const correctAnswer = correctAnswerResult.rows[0].correct_answer.toLowerCase();
+        const correctAnswer = correctAnswerResult.rows[0].correct_answer;
         console.log("Correct Answer:", correctAnswer);
 
         // Update the last_correct_answer_timestamp if the user's answer was correct
-        if (userAnswer.toLowerCase() === correctAnswer) {
+        if (userAnswer === correctAnswer) {
           await db.query(
             "UPDATE users SET last_correct_answer_timestamp = CURRENT_TIMESTAMP WHERE user_id = $1",
             [userId]
@@ -430,10 +430,10 @@ app.post("/questions/:questionId/answer", requireLogin, async (req, res) => {
     );
     console.log("Query Result:", result.rows);
 
-    const correctAnswer = result.rows[0].correct_answer.toLowerCase();
+    const correctAnswer = result.rows[0].correct_answer;
     console.log("Correct Answer:", correctAnswer);
 
-    const userAnswer = req.body.answer.toLowerCase();
+    const userAnswer = req.body.answer;
     console.log("User Answer:", userAnswer,"correct answer ",correctAnswer);
 
     if (userAnswer === correctAnswer) {
