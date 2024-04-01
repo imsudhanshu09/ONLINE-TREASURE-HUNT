@@ -17,7 +17,7 @@ const Header = () => {
         nav2justifyContent="space-around"
         nav3justifyContent="space-around"
         link1Text="Home"
-        link2Text="Rules"
+        link2Text="Guidelines"
         link3Text="Leaderboard"
         link4Text="Hints"
         link1Url="/"
