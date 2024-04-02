@@ -7,7 +7,7 @@
   .crawl {
     position: relative;
     top: 100vh;
-    animation: crawl 90s linear infinite;
+    animation: crawl 75s linear infinite;
   }
   
   @keyframes crawl {

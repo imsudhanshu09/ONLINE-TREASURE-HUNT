@@ -127,7 +127,7 @@ const Rules = () => {
           <li><u>There are total 9 rules, listed below</u></li>
         </ul>
         <ol className="u">
-          <li>The Online Treasure Hunt (OTH) will commence on "04/04/24 at 23:59" and conclude on "07/04/24 at 23:59".</li>
+          <li>The Online Treasure Hunt (OTH) will commence on "05/04/24 at 00:00" and conclude on "08/04/24 at 00:00".</li>
           <br />
           <li>You're permitted to utilize the internet and AI tools to find answers. Only when your response is accurate can you proceed to the next question.</li>
           <br />
@@ -135,7 +135,7 @@ const Rules = () => {
           <br />
           <li>Avoid spacing in your answers. For example, if the answer is "Rohit Sharma," write "rohitsharma".</li>
           <br />
-          <li>Provide full names when necessary. For instance, if the answer is "gandhiji," then the full name "mohandaskaramchandragandhi" is required.</li>
+          <li>Provide full names when necessary. For instance, if the answer is "brij", then the full name "brijdeepgoyal" is required.</li>
           <br />
           <li>Numeric answers should be presented in numbers. For example, if the answer is "Krishh3," write "krishhthree".</li>
           <br />

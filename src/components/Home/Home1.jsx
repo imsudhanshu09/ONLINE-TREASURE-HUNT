@@ -391,8 +391,8 @@ const Home = () => {
                 asteroid.position.y += moveAmount;
             }
 
-            gunPointer.current.position.x = mouseX * 5;
-            gunPointer.current.position.y = mouseY * 5;
+            gunPointer.current.position.x = mouseX * 15;
+            gunPointer.current.position.y = mouseY * 15;
         }
     };
    
