@@ -478,7 +478,7 @@ app.get("/Leaderboard", async (req, res) => {
       ORDER BY 
         last_answered_question_id DESC, 
         first_correct_answer_timestamp ASC
-      LIMIT 10 
+      LIMIT 50 
     `;
 
     // Execute the query
