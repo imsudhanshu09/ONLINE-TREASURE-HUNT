@@ -82,7 +82,7 @@ function ResponsiveAppBar({t}) {
     const fetchUserData = async () => {
       try {
         // Make a request to fetch user data
-        const response = await axios.post('http://localhost:3001/userData');
+        const response = await axios.post('https://online-treasure-hunt-10.onrender.com/userData');
   
        const userName = response.data.username;
         //console.log(response)

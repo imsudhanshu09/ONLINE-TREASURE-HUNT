@@ -42,7 +42,7 @@ const SignUp = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:3001/SignUp', formData);
+      const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
         console.log("Server response:",response.data.status);
         setShowPopUp(true); // Show pop-up after successful registration
       setTimeout(() => {
