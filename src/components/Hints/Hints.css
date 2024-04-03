@@ -22,7 +22,7 @@
   .crawl  {
     font-family: 'Arial', sans-serif;
     font-size: 24px;
-    color: yellow;
+    color: #00758F;
     transform: translateY(-50%);
     margin: 0;
     text-align: center;
@@ -31,14 +31,16 @@
   }
 
   .icon svg{
-    fill: yellow;
+    fill: rgba(255, 0, 106, 0.599);
     width: 66px;
     height: 66px;
   }
 
   .icon a:hover svg{
-    fill: gold;
+    fill: rgba(255, 0, 100, 1.599);
   }
+  /* .rules-container { */
+ 
   
  
 

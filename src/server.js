@@ -214,10 +214,16 @@ app.post("/Login", async (req, res) => {
           // req.session.userProgress[user.user_id] = req.session.userProgress[user.user_id] || {};
           // req.session.user = user;
           req.session.userId = user.user_id;
-          console.log("userId assigned to session:", req.session.userId);     
+          console.log("userId assigned to session:", req.session.userId);  
+          
+          const usernameResult = await db.query("SELECT username FROM users WHERE email = $1", [
+            email,
+          ]);
+          const username = usernameResult.rows[0].username;
 
           //  /==============/= 
           const userinfo={
+            Uname:username,
             name:email,
             userId:user.user_id
           }
@@ -239,15 +245,32 @@ app.post("/Login", async (req, res) => {
             res.send({ status: true, userId: user.user_id,check:"hello" });
         
         }  else {
-          console.log("this is error",err);
-          res.send({status:false});
-          res.send({ message: "Wrong username/password combination!" });
+          // console.log("this is error",err);
+          res.send({status:false, message: "Wrong username/password combination!"});
+          //res.send({ message: "Wrong username/password combination!" });
         }
     } else {
       res.send({ message: "User doesn't exist" });
     }
   } catch (err) {
     console.log(err);
+  }
+});
+app.post('/userData', requireLogin, async (req, res) => {
+  try {
+    const userId = req.userId
+    // Query to fetch user data based on user ID
+    const result = await db.query('SELECT username FROM users WHERE user_id = $1', [userId]);
+    // Check if user data was found
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Return the username
+    res.send({ status: true, username: result.rows[0].username });
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 // app.use(initializeUserProgress);
@@ -268,6 +291,22 @@ app.post("/SignUp", async (req, res) => {
     
     if (checkResult.rows.length > 0) {
       console.log("User already exists. Redirecting to login...");
+      const user = checkResult.rows[0];
+      const userinfo={
+        Uname:username,
+        name:email,
+        userId:user.user_id
+      }
+        var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
+        console.log(token);
+
+       res.cookie("test",token,{
+        // httpOnly:true,
+        maxAge:144*60*60*1000,
+        httpOnly:false, 
+        sameSite: "None",
+        secure:true
+      });
       res.send({status:true});
     } else {
       bcrypt.hash(password, saltRounds, async (err, hash) => {
@@ -280,6 +319,7 @@ app.post("/SignUp", async (req, res) => {
             );
             const user = result.rows[0];
             const userinfo={
+              Uname:username,
               name:email,
               userId:user.user_id
             }

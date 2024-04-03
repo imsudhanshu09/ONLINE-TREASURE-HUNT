@@ -307,7 +307,7 @@ const Home = () => {
 
     const [asteroidsHit, setAsteroidsHit] = useState(0);
 
-
+        
 
     useEffect(() => {
         // Function to initialize Three.js scene

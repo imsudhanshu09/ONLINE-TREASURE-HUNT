@@ -30,7 +30,7 @@ const Hints = () => {
   }, []);
 
   return (
-    <div className="hints-container">
+    <div className="container">
       <div className="crawl">
         <p>A long time ago in a galaxy far, far away...</p>
         

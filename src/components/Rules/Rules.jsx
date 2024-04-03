@@ -103,7 +103,7 @@ const Rules = () => {
     const handleScroll = () => {
       rules.forEach((rule, index) => {
         const rect = rule.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 1.00) {
+        if (rect.top < window.innerHeight * 3.00) {
           rule.style.opacity = '1';
         }
       });
@@ -120,14 +120,17 @@ const Rules = () => {
   return (
     <div>
       <div>
-        <h1 className="r">RULES</h1>
+        <h1 className="r">GUIDELINES</h1>
       </div>
-      <div>
-        <ul className='u'>
-          <li><u>There are total 9 rules, listed below</u></li>
+      <div  className='container'>
+      <div className="rule-list">
+        <ul className='u center-text'>
+          <u>There are a total of 10 rules listed below!</u>
         </ul>
         <ol className="u">
           <li>The Online Treasure Hunt (OTH) will commence on "05/04/24 at 00:00" and conclude on "08/04/24 at 00:00".</li>
+          <br />
+          <li>Please provide a valid username and email while Registering.</li>
           <br />
           <li>You're permitted to utilize the internet and AI tools to find answers. Only when your response is accurate can you proceed to the next question.</li>
           <br />
@@ -137,15 +140,23 @@ const Rules = () => {
           <br />
           <li>Provide full names when necessary. For instance, if the answer is "brij", then the full name "brijdeepgoyal" is required.</li>
           <br />
-          <li>Numeric answers should be presented in numbers. For example, if the answer is "Krishh3," write "krishhthree".</li>
+          <li>Numeric answers should be presented in words. For example, if the answer is "Krishh3," write "krishhthree".</li>
           <br />
           <li>Only one question entails a fully numeric answer. For instance, "12345" should be written as "onetwothreefourfive".</li>
           <br />
           <li>The number of hints provided correlates with the difficulty of the questions.</li>
           <br/>
-          <li>If you have any questions or need assistance, please don't hesitate to reach out to the organizing team: <br/> Sudhanshu Kumar: 9523788886
-          <br/> Garv Jauhari: 6307129301  <br/> We're here to help! </li>
-</ol>
+          <li>
+            If you have any questions or need assistance, please don't hesitate to reach out to the organizing team:
+            <br/> 
+            <span style={{ color: 'grey' }}>Sudhanshu Kumar: 9523788886</span>
+            <br/> 
+            <span style={{ color: 'grey' }}>Garv Jauhari: 6307129301</span>
+            <br/> 
+            We're here to help!
+          </li>
+          </ol>
+          </div>
 <div className="background"></div>
       </div>
     </div>

@@ -18,7 +18,7 @@ import Countdown from './components/Countdown/Countdown.jsx';
 function App() {
   return (
     <Router>
-      <Header />
+      <Header t={data.g} />
         <Routes>
           <Route path="/" element={<Home1 />} />
           <Route exact path="/Rules" element={<Rules />} />

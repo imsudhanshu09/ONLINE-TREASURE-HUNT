@@ -1,63 +1,70 @@
+/* Centered container */
 .c {
-    color: #fff;
-    text-align: center;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Cool title */
+.c h1 {
+  font-size: 48px;
+  font-weight: 600;
+  color: #fff;
+  background: #9396A7;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
+  animation: glow 2s linear infinite alternate; /* Add glow animation */
+  font-family: "League Spartan", sans-serif;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #4eabe0, 0 0 20px #3fabe1;
   }
-  
-  .c h1 {
-    font-size: 48px;
-    font-weight: 600;
-    background: linear-gradient(to right, #ff3753, #ff7f00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
-    animation: glow 2s linear infinite alternate; /* Add glow animation */
+  to {
+    text-shadow: 0 0 20px #143e60, 0 0 30px #2b98cf;
   }
-  
-  @keyframes glow {
-    from {
-      text-shadow: 0 0 10px #ff3753, 0 0 20px #ff7f00;
-    }
-    to {
-      text-shadow: 0 0 20px #ff3753, 0 0 30px #ff7f00;
-    }
+}
+
+/* Cool cards */
+.l {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.l div {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
+  animation: pulse 1.5s ease-in-out infinite alternate; /* Add pulse animation */
+  margin: 0 10px;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
   }
-  
-  .l {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  to {
+    transform: scale(1.1);
   }
-  
-  .l div {
-    margin: 0 10px;
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
-    animation: pulse 1.5s ease-in-out infinite alternate; /* Add pulse animation */
-  }
-  
-  @keyframes pulse {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.1);
-    }
-  }
-  
-  .l div p {
-    font-size: 48px;
-    margin-bottom: 5px;
-    color: #ff7f00;
-  }
-  
-  .l div span {
-    font-size: 20px;
-    color: #fff;
-  }
+}
+
+.l div h1 {
+  font-size: 48px;
+  margin-bottom: 5px;
+  color: #9396A7;
+}
+
+.l div span {
+  font-size: 20px;
+  color: #837979;
+}
+ 

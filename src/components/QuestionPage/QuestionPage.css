@@ -1,6 +1,8 @@
 /* Adjust the question container to be centered and positioned below */
-.container {
+.qcontainer {
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .question-container {

@@ -35,8 +35,8 @@ const Login = () => {
     e.preventDefault();
     console.log("Form submitted with data:", formData);
     try {
-      // const response = await axios.post('https://online-treasure-hunt-10.onrender.com/Login', formData);
-      const resp = await fetch("https://online-treasure-hunt-10.onrender.com/Login", {
+      // const response = await axios.post('http://localhost:3001/Login', formData);
+      const resp = await fetch("http://localhost:3001/Login", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ const Login = () => {
         console.log('Login response11:', response);
         if(response.status){
           // Redirect to dashboard or another page upon successful login
-          navigate('/Account');
+          navigate('/');
         }
         else{
           setLoginError("Login failed. Please check your credentials.");
@@ -60,7 +60,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    axios.get('https://online-treasure-hunt-10.onrender.com/Login').then((response) => {
+    axios.get('http://localhost:3001/Login').then((response) => {
       if (response.data.loggedIn == true) {
         setLoginError(response.data.user);
       }

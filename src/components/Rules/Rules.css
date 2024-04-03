@@ -1,24 +1,61 @@
 body {
     background-image: url("../Images/space6.jpg");
-    font-family: "Poppins", sans-serif;
+    font-family: "Oswald", sans-serif;
     font-weight: 800;
-    font-style: italic;
+    /* font-style: 'Oswald', sans-serif */
+    ;
   }
 
  
 
 
 .r{
-    font-size: 5em;
+    font-size: 3em;
    text-decoration: underline;
     text-align: center;
-    color: goldenrod;
+    color: rgb(186, 85, 45);
 }
 .u{
-    color: rgb(49, 179, 179);
-    font-size: 2em;
+    color: #00758F;
+    font-size: 1.4em;
+    margin-top: 50px;
+}
+.center-text {
+  margin-top: -2px;
+  text-align: center;
+  color: rgb(16, 72, 94);
 }
 
+
+.container {
+  background-color: rgba(24, 23, 23, 0.8); /* Dark text color */
+  width: 100%;
+  max-width: 1300px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding as needed */
+  border-radius: 20px;
+  display: flex; /* Use flexbox */
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center;
+}
+.rule-list {
+  flex: 1; /* Let the rule list grow to fill available space */
+  overflow-y: auto;
+}
+/* Media Query for Mobile Devices */
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 10px; /* Adjust padding for smaller screens */
+    border-radius: 10px; /* Adjust border-radius for smaller screens */
+  }
+  .r {
+    font-size: 2em; /* Reduce font size for heading */
+  }
+  .u {
+    font-size: 1em; /* Reduce font size for list items */
+  }
+}
 
 
 /* .u li {

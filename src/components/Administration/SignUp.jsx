@@ -26,6 +26,7 @@ const SignUp = () => {
     confirmPassword: ''
   });
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,9 +42,14 @@ const SignUp = () => {
       return;
     }
     try {
-      const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
+      const response = await axios.post('http://localhost:3001/SignUp', formData);
         console.log("Server response:",response.data.status);
-        navigate('/Login');
+        setShowPopUp(true); // Show pop-up after successful registration
+      setTimeout(() => {
+        setShowPopUp(false); // Hide pop-up after 3 seconds
+        navigate('/'); // Navigate to home page
+      }, 2000);
+        //navigate('/');
       // Reset form after successful signup
       setFormData({
         username: '',
@@ -113,8 +119,14 @@ const SignUp = () => {
             <p className="error-message">Passwords do not match!</p>
           )}
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Register</button>
       </form>
+      {showPopUp && (
+        <div className="popup">
+          <p>You have successfully registered!</p>
+          <p>Redirecting to the home page...</p>
+        </div>
+      )}
       <div className="background"></div>
       <div className="signup-sun"></div>
     </div>

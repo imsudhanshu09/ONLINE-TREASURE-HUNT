@@ -23,7 +23,7 @@ const Countdown = () => {
   const [seconds, setSeconds] = useState(0);
   let interval;
 
-  const deadline = "April 5, 2024 ";
+  const deadline = "March 5, 2024 ";
 
   const getTime = () => {
     const time = Date.parse(deadline) - Date.now();

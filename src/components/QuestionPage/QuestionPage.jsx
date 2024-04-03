@@ -32,7 +32,7 @@ const QuestionPage = () => {
   const fetchNextQuestion = async () => {
     try {
       console.log("Fetching next question...");
-      const response = await axios.get('https://online-treasure-hunt-10.onrender.com/questions', { withCredentials: true });
+      const response = await axios.get('http://localhost:3001/questions', { withCredentials: true });
       //console.log("Response:", response.data); // Log response data
       if (response.data.message) {
         setQuestion(null);
@@ -55,7 +55,7 @@ const QuestionPage = () => {
   const handleAnswerSubmit = async () => {
     try {
       const response = await axios.post(
-        `https://online-treasure-hunt-10.onrender.com/questions/${question.id}/answer`,
+        `http://localhost:3001/questions/${question.id}/answer`,
         { answer },
         { withCredentials: true }
       );
@@ -66,7 +66,7 @@ const QuestionPage = () => {
         fetchNextQuestion(); // Adjust delay time as needed
         console.log("question fetched")
       } else {
-        setFeedback('Incorrect. Please try again.');
+        setFeedback('Incorrect! Please try again.');
         setTimeout(() => {
           setFeedback('');
         }, 2000);
@@ -81,7 +81,7 @@ const QuestionPage = () => {
   };  
 
   return (
-    <div className="container">
+    <div className="qcontainer">
     <div className="question-container">
       {question ? (
         <div>
