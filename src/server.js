@@ -227,7 +227,7 @@ app.post("/Login", async (req, res) => {
             name:email,
             userId:user.user_id
           }
-            var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
+            var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'144hr'});
             console.log(token);
 
            res.cookie("test",token,{
@@ -297,7 +297,7 @@ app.post("/SignUp", async (req, res) => {
         name:email,
         userId:user.user_id
       }
-        var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
+        var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'144hr'});
         console.log(token);
 
        res.cookie("test",token,{
@@ -323,7 +323,7 @@ app.post("/SignUp", async (req, res) => {
               name:email,
               userId:user.user_id
             }
-              var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'2hr'});
+              var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'144hr'});
   
               res.cookie("test",token,{
                 // httpOnly:true,
