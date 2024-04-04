@@ -202,3 +202,12 @@
 .popup p:first-child {
   margin-bottom: -10px; /* Adjust this value to reduce the gap */
 }
+
+@media only screen and (max-width: 600px) {
+  .popup {
+    left: 0;
+    right: 0;
+    text-align: center; /* Center the popup on mobile */
+    align-items: center; /* Center the items vertically */
+  }
+}
