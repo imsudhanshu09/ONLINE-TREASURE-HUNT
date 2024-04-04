@@ -176,7 +176,7 @@ const requireLogin = async(req, res, next) => {
   console.log("token got ",token);
 if(!token)
 {return res.status(401).send({ error: "Unauthorized1" });}
-const data=jwt.verify(token,"shhhhh");
+const data=jwt.verify(token,"shhhhhh");
   if (!data) {
    
     return res.status(401).send({ error: "Unauthorized2" });
@@ -227,7 +227,7 @@ app.post("/Login", async (req, res) => {
             name:email,
             userId:user.user_id
           }
-            var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'144hr'});
+            var token = jwt.sign(userinfo, 'shhhhhh',{expiresIn:'144hr'});
             console.log(token);
 
            res.cookie("test",token,{
@@ -297,7 +297,7 @@ app.post("/SignUp", async (req, res) => {
         name:email,
         userId:user.user_id
       }
-        var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'144hr'});
+        var token = jwt.sign(userinfo, 'shhhhhh',{expiresIn:'144hr'});
         console.log(token);
 
        res.cookie("test",token,{
@@ -323,7 +323,7 @@ app.post("/SignUp", async (req, res) => {
               name:email,
               userId:user.user_id
             }
-              var token = jwt.sign(userinfo, 'shhhhh',{expiresIn:'144hr'});
+              var token = jwt.sign(userinfo, 'shhhhhh',{expiresIn:'144hr'});
   
               res.cookie("test",token,{
                 // httpOnly:true,
