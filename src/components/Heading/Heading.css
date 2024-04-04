@@ -1,23 +1,18 @@
 /* Heading.css */
 .heading {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -60%);
     color: gold;
     font-size: 3em; /* Increase font size */
     text-align: center; /* Center text */
-    width: 100%; /* Make the heading cover the entire width */
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.heading {
-    text-align: center; 
-  }
   
   .logo {
     max-width: 100%; 
     max-height: 500px;
-    margin-top: 150px;
+    margin-top: 200px;
   }
   
   @media only screen and (max-width: 600px) {
