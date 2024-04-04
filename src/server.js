@@ -441,7 +441,7 @@ app.get("/questions", requireLogin, async (req, res) => {
 
     // Retrieve the details of the next question from the database
     const nextQuestionResult = await db.query(
-      "SELECT id, question_text, image_url, correct_answer FROM questions WHERE id = $1",
+      "SELECT id, question_text, image_url FROM questions WHERE id = $1",
       [nextQuestionId]
     );
     const nextQuestion = nextQuestionResult.rows[0];
