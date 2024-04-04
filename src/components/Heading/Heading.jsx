@@ -9,7 +9,7 @@ const Heading = () => {
             {/* <h3>E CELL IIITP</h3>
             <p>Presents......</p>
             </div> */} 
- <img src={logo} alt="Logo" width={800} height={500}/>
+ <img src={logo} alt="Logo" className="logo"/>
             
         </div>
     );
