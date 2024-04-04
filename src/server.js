@@ -18,8 +18,8 @@ app.use(express.json())
 app.use(
   cors({
     origin: ["http://localhost:3000"
-    ,"https://onlinetreasurehunt2024.netlify.app"
-  ],
+      , "https://onlinetreasurehunt2024.netlify.app"
+    ],
     // methods: ["GET", "POST"],
     credentials: true,
   })
@@ -72,16 +72,16 @@ const db = new pg.Client({
   port: process.env.PG_PORT,
   ssl: {
     rejectUnauthorized: true,
-   
+
     // Other SSL/TLS options can be specified here if needed
-}
+  }
 });
 db.connect();
-app.get('/sudhansu',(req,resp)=>{
-  resp.cookie("test","sudhansu",{
-    httpOnly:false, 
+app.get('/sudhansu', (req, resp) => {
+  resp.cookie("test", "sudhansu", {
+    httpOnly: false,
     sameSite: "Node",
-    secure:true
+    secure: true
   });
   resp.send("data");
 })
@@ -121,7 +121,7 @@ app.use(
       httpOnly: false,
       // secure: true, // Enable this if using HTTPS
       // sameSite: "strict",
-    }  
+    }
   })
 );
 
@@ -139,7 +139,7 @@ app.use(express.static("public"));
 //   }
 //   console.log("Session object in initializeUserProgress:", req.session);
 //   console.log("User ID in initializeUserProgress before:", req.session.userId);
-  
+
 //   const userId = req.session.userId;
 
 //   console.log("User ID in initializeUserProgress:", userId);
@@ -155,7 +155,7 @@ app.use(express.static("public"));
 //       req.session.userProgress[userId] = {};
 //     }
 //   }
-  
+
 //   next();
 // };
 
@@ -175,7 +175,7 @@ app.use(express.static("public"));
 const requireLogin = async (req, res, next) => {
   const token = req.cookies['test'] || false;
   console.log("token got ", token);
-  
+
   if (!token) {
     return res.status(401).send({ error: "Unauthorized: Token not provided" });
   }
@@ -189,7 +189,7 @@ const requireLogin = async (req, res, next) => {
 
     req.userId = data.userId;
     console.log("request user id: ", req.userId);
-    
+
     // Optionally check for token expiry
     const currentTimestamp = Math.floor(Date.now() / 1000);
     if (data.exp && data.exp < currentTimestamp) {
@@ -204,22 +204,22 @@ const requireLogin = async (req, res, next) => {
 };
 
 
-  // const requireLogin = async(req, res, next) => {
-  //   const token=req.cookies['test']||false;
-  //   console.log("token got ",token);
-  // if(!token)
-  // {return res.status(401).send({ error: "Unauthorized1" });}
-  // const data=jwt.verify(token,"shhhhhh");
-  //   if (!data) {
-    
-  //     return res.status(401).send({ error: "Unauthorized2" });
-  //   }
+// const requireLogin = async(req, res, next) => {
+//   const token=req.cookies['test']||false;
+//   console.log("token got ",token);
+// if(!token)
+// {return res.status(401).send({ error: "Unauthorized1" });}
+// const data=jwt.verify(token,"shhhhhh");
+//   if (!data) {
 
-  //   req.userId=data.userId;
-  //   console.log("request user id: ",req.userId)
-  //   // console.log("userid: ",req.session.userId)
-  //   next();
-  // };
+//     return res.status(401).send({ error: "Unauthorized2" });
+//   }
+
+//   req.userId=data.userId;
+//   console.log("request user id: ",req.userId)
+//   // console.log("userid: ",req.session.userId)
+//   next();
+// };
 
 app.get("/Login", async (req, res) => {
   if (req.session.user) {
@@ -243,45 +243,45 @@ app.post("/Login", async (req, res) => {
       const storedHashedPassword = user.password;
 
       const match = await bcrypt.compare(password, storedHashedPassword);
-        if (match) {
-          // req.session.userProgress[user.user_id] = req.session.userProgress[user.user_id] || {};
-          // req.session.user = user;
-          req.session.userId = user.user_id;
-          console.log("userId assigned to session:", req.session.userId);  
-          
-          const usernameResult = await db.query("SELECT username FROM users WHERE email = $1", [
-            email,
-          ]);
-          const username = usernameResult.rows[0].username;
+      if (match) {
+        // req.session.userProgress[user.user_id] = req.session.userProgress[user.user_id] || {};
+        // req.session.user = user;
+        req.session.userId = user.user_id;
+        console.log("userId assigned to session:", req.session.userId);
 
-          //  /==============/= 
-          const userinfo={
-            Uname:username,
-            name:email,
-            userId:user.user_id
-          }
-            var token = jwt.sign(userinfo, 'shhhhhh',{expiresIn:'144hr'});
-            console.log(token);
+        const usernameResult = await db.query("SELECT username FROM users WHERE email = $1", [
+          email,
+        ]);
+        const username = usernameResult.rows[0].username;
 
-           res.cookie("test",token,{
-            // httpOnly:true,
-            maxAge:144*60*60*1000,
-            httpOnly:false, 
-            sameSite: "None",
-            secure:true
-          });
-            // console.log()
-            // res.cookie("test","sudhansu");
-            // var decoded = jwt.verify(token, 'shhhhh');
-            // console.log(decoded.foo) // bar
-           //  /==============/= 
-            res.send({ status: true, userId: user.user_id,check:"hello" });
-        
-        }  else {
-          // console.log("this is error",err);
-          res.send({status:false, message: "Wrong username/password combination!"});
-          //res.send({ message: "Wrong username/password combination!" });
+        //  /==============/= 
+        const userinfo = {
+          Uname: username,
+          name: email,
+          userId: user.user_id
         }
+        var token = jwt.sign(userinfo, 'shhhhhh', { expiresIn: '144hr' });
+        console.log(token);
+
+        res.cookie("test", token, {
+          // httpOnly:true,
+          maxAge: 144 * 60 * 60 * 1000,
+          httpOnly: false,
+          sameSite: "None",
+          secure: true
+        });
+        // console.log()
+        // res.cookie("test","sudhansu");
+        // var decoded = jwt.verify(token, 'shhhhh');
+        // console.log(decoded.foo) // bar
+        //  /==============/= 
+        res.send({ status: true, userId: user.user_id, check: "hello" });
+
+      } else {
+        // console.log("this is error",err);
+        res.send({ status: false, message: "Wrong username/password combination!" });
+        //res.send({ message: "Wrong username/password combination!" });
+      }
     } else {
       res.send({ message: "User doesn't exist" });
     }
@@ -309,75 +309,76 @@ app.post('/userData', requireLogin, async (req, res) => {
 // app.use(initializeUserProgress);
 
 app.post("/SignUp", async (req, res) => {
-  const username=req.body.username;
+  const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
-  const checkcred = await db.query("SELECT * FROM users WHERE (username, email) = ($1, $2)", [
-    username,email
+  const checkcred = await db.query("SELECT * FROM users WHERE username = $1 OR email = $2", [
+    username, email
   ]);
-  const user=checkcred.rows[0];
-  if (user) {
-    res.send({status:true});
+  console.log(checkcred.rowCount)
+  //const user1=checkcred.rows[0];
+  if (checkcred.rowCount > 0) {
+    res.send({ status: 69 });
   }
   else {
-  if (password !== confirmPassword) {
-    return res.status(400).json({ error: "Passwords do not match" });
-  }
-  try {
-    const checkResult = await db.query("SELECT * FROM users WHERE (username, email) = ($1, $2)", [
-      username,email
-    ]);
-    
-    if (checkResult.rows.length > 0) {
-      console.log("User already exists. Redirecting to login...");
-      const user = checkResult.rows[0];
-      const userinfo={
-        Uname:username,
-        name:email,
-        userId:user.user_id
-      }
-        var token = jwt.sign(userinfo, 'shhhhhh',{expiresIn:'144hr'});
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: "Passwords do not match" });
+    }
+    try {
+      const checkResult = await db.query("SELECT * FROM users WHERE (username, email) = ($1, $2)", [
+        username, email
+      ]);
+
+      if (checkResult.rows.length > 0) {
+        console.log("User already exists. Redirecting to login...");
+        const user = checkResult.rows[0];
+        const userinfo = {
+          Uname: username,
+          name: email,
+          userId: user.user_id
+        }
+        var token = jwt.sign(userinfo, 'shhhhhh', { expiresIn: '144hr' });
         console.log(token);
 
-       res.cookie("test",token,{
-        // httpOnly:true,
-        maxAge:144*60*60*1000,
-        httpOnly:false, 
-        sameSite: "None",
-        secure:true
-      });
-      res.send({status:true});
-    } else {
-      bcrypt.hash(password, saltRounds, async (err, hash) => {
-        if (err) {
-          console.error("Error hashing password:", err);
-        } else {
-          const result = await db.query(
-            `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *`,
-            [username, email, hash]
+        res.cookie("test", token, {
+          // httpOnly:true,
+          maxAge: 144 * 60 * 60 * 1000,
+          httpOnly: false,
+          sameSite: "None",
+          secure: true
+        });
+        res.send({ status: true });
+      } else {
+        bcrypt.hash(password, saltRounds, async (err, hash) => {
+          if (err) {
+            console.error("Error hashing password:", err);
+          } else {
+            const result = await db.query(
+              `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *`,
+              [username, email, hash]
             );
             const user = result.rows[0];
-            const userinfo={
-              Uname:username,
-              name:email,
-              userId:user.user_id
+            const userinfo = {
+              Uname: username,
+              name: email,
+              userId: user.user_id
             }
-              var token = jwt.sign(userinfo, 'shhhhhh',{expiresIn:'144hr'});
-  
-              res.cookie("test",token,{
-                // httpOnly:true,
-                maxAge:144*60*60*1000,
-                httpOnly:false, 
-                sameSite: "None",
-                secure:true
-              });         
+            var token = jwt.sign(userinfo, 'shhhhhh', { expiresIn: '144hr' });
+
+            res.cookie("test", token, {
+              // httpOnly:true,
+              maxAge: 144 * 60 * 60 * 1000,
+              httpOnly: false,
+              sameSite: "None",
+              secure: true
+            });
             if (err) {
               console.error("Error logging in:", err);
             } else {
               console.log("Success");
-              res.send({status:true});
+              res.send({ status: true });
             }
           }
         });
@@ -501,7 +502,7 @@ app.post("/questions/:questionId/answer", requireLogin, async (req, res) => {
   console.log("this is called");
   const { questionId } = req.params;
   const userId = req.userId;
-  console.log("USER ID2: ",userId)
+  console.log("USER ID2: ", userId)
 
   try {
     console.log("Handling answer submission...");
@@ -516,7 +517,7 @@ app.post("/questions/:questionId/answer", requireLogin, async (req, res) => {
     console.log("Correct Answer:", correctAnswer);
 
     const userAnswer = req.body.answer;
-    console.log("User Answer:", userAnswer,"correct answer ",correctAnswer);
+    console.log("User Answer:", userAnswer, "correct answer ", correctAnswer);
 
     if (userAnswer === correctAnswer) {
       // Update user progress and timestamp

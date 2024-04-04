@@ -44,7 +44,7 @@ const SignUp = () => {
     try {
       const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
       console.log("Server response:",response);
-      if(response.data.status){
+      if(response.data.status == 69){
         alert("Username or Email is taken")
       } else {
         console.log("Server response:",response.data.status);
