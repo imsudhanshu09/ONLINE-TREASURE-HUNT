@@ -398,7 +398,7 @@ app.get("/questions", requireLogin, async (req, res) => {
   try {
     // Retrieve user's ID from the session
     const userId = req.userId;
-    console.log("User ID:", userId);
+    //console.log("User ID:", userId);
 
     // Retrieve user's progress from the session
     // const userProgress = req.session.userProgress[userId] || {};
@@ -410,7 +410,7 @@ app.get("/questions", requireLogin, async (req, res) => {
       [userId]
     );
     const lastAnsweredQuestionId = lastAnsweredQuestionResult.rows[0]?.last_answered_question_id;
-    console.log("Last Answered Question ID1:", lastAnsweredQuestionId);
+    //console.log("Last Answered Question ID1:", lastAnsweredQuestionId);
 
     // Find the next unanswered question ID, starting from the last answered question
     let nextQuestionId;
@@ -431,11 +431,11 @@ app.get("/questions", requireLogin, async (req, res) => {
         nextQuestionId = firstQuestionResult.rows[0].id;
       }
     }
-    console.log("Next Question ID:", nextQuestionId);
+    //console.log("Next Question ID:", nextQuestionId);
 
     if (!nextQuestionId) {
       // If there's no next unanswered question, return an appropriate response
-      console.log("No next question found. Congratulations message sent.");
+      //console.log("No next question found. Congratulations message sent.");
       return res.json({ message: "Congratulations! You have answered all the questions." });
     }
 
@@ -445,7 +445,7 @@ app.get("/questions", requireLogin, async (req, res) => {
       [nextQuestionId]
     );
     const nextQuestion = nextQuestionResult.rows[0];
-    console.log("Next Question:", nextQuestion);
+    //console.log("Next Question:", nextQuestion);
 
     // Send the details of the next question
     res.json(nextQuestion);
@@ -464,11 +464,11 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
       "SELECT last_answered_question_id FROM users WHERE user_id = $1",
       [userId]
     );
-    console.log("Query Result:", queryResult.rows);
+    //console.log("Query Result:", queryResult.rows);
 
     if (queryResult.rows.length > 0) {
       const lastAnsweredQuestionId = queryResult.rows[0].last_answered_question_id;
-      console.log("Last Answered Question ID2:", lastAnsweredQuestionId);
+      //console.log("Last Answered Question ID2:", lastAnsweredQuestionId);
 
       if (lastAnsweredQuestionId !== null && lastAnsweredQuestionId !== undefined) {
         // Fetch the correct answer for the last answered question
@@ -476,10 +476,10 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
           "SELECT correct_answer FROM questions WHERE id = $1",
           [lastAnsweredQuestionId]
         );
-        console.log("Correct Answer Result:", correctAnswerResult.rows);
+        //console.log("Correct Answer Result:", correctAnswerResult.rows);
 
         const correctAnswer = correctAnswerResult.rows[0].correct_answer;
-        console.log("Correct Answer:", correctAnswer);
+        //console.log("Correct Answer:", correctAnswer);
 
         // Update the last_correct_answer_timestamp if the user's answer was correct
         if (userAnswer === correctAnswer) {
@@ -487,7 +487,7 @@ const updateLastCorrectAnswerTimestamp = async (userId, userAnswer) => {
             "UPDATE users SET last_correct_answer_timestamp = CURRENT_TIMESTAMP WHERE user_id = $1",
             [userId]
           );
-          console.log("Last correct answer timestamp updated successfully.");
+          //console.log("Last correct answer timestamp updated successfully.");
         }
       }
     }
@@ -511,13 +511,13 @@ app.post("/questions/:questionId/answer", requireLogin, async (req, res) => {
       "SELECT correct_answer FROM questions WHERE id = $1",
       [questionId]
     );
-    console.log("Query Result:", result.rows);
+    //console.log("Query Result:", result.rows);
 
     const correctAnswer = result.rows[0].correct_answer;
-    console.log("Correct Answer:", correctAnswer);
+    //console.log("Correct Answer:", correctAnswer);
 
     const userAnswer = req.body.answer;
-    console.log("User Answer:", userAnswer, "correct answer ", correctAnswer);
+    //console.log("User Answer:", userAnswer, "correct answer ", correctAnswer);
 
     if (userAnswer === correctAnswer) {
       // Update user progress and timestamp
@@ -526,11 +526,11 @@ app.post("/questions/:questionId/answer", requireLogin, async (req, res) => {
         "UPDATE users SET last_answered_question_id = $1 WHERE user_id = $2",
         [questionId, userId]
       );
-      console.log("User progress and timestamp updated successfully.");
+      //console.log("User progress and timestamp updated successfully.");
 
       // Call function to update timestamp
       await updateLastCorrectAnswerTimestamp(userId, userAnswer);
-      console.log("Last correct answer timestamp updated successfully.");
+      //console.log("Last correct answer timestamp updated successfully.");
 
       res.send({ correct: true });
     } else {
@@ -578,7 +578,7 @@ app.get("/Leaderboard", async (req, res) => {
     // Send the leaderboard data as a response
     res.json({ leaderboard });
   } catch (error) {
-    console.error("Error fetching leaderboard data:", error);
+    //console.error("Error fetching leaderboard data:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
