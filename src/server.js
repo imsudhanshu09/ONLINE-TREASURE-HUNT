@@ -171,22 +171,55 @@ app.use(express.static("public"));
 //   }
 //   next();
 // };
-const requireLogin = async(req, res, next) => {
-  const token=req.cookies['test']||false;
-  console.log("token got ",token);
-if(!token)
-{return res.status(401).send({ error: "Unauthorized1" });}
-const data=jwt.verify(token,"shhhhhh");
-  if (!data) {
-   
-    return res.status(401).send({ error: "Unauthorized2" });
+
+const requireLogin = async (req, res, next) => {
+  const token = req.cookies['test'] || false;
+  console.log("token got ", token);
+  
+  if (!token) {
+    return res.status(401).send({ error: "Unauthorized: Token not provided" });
   }
 
-  req.userId=data.userId;
-  console.log("request user id: ",req.userId)
-  // console.log("userid: ",req.session.userId)
-  next();
+  try {
+    const data = jwt.verify(token, "shhhhhh");
+
+    if (!data) {
+      return res.status(401).send({ error: "Unauthorized: Invalid token" });
+    }
+
+    req.userId = data.userId;
+    console.log("request user id: ", req.userId);
+    
+    // Optionally check for token expiry
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    if (data.exp && data.exp < currentTimestamp) {
+      return res.status(401).send({ error: "Unauthorized: Token has expired" });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return res.status(401).send({ error: "Unauthorized: Error verifying token" });
+  }
 };
+
+
+  // const requireLogin = async(req, res, next) => {
+  //   const token=req.cookies['test']||false;
+  //   console.log("token got ",token);
+  // if(!token)
+  // {return res.status(401).send({ error: "Unauthorized1" });}
+  // const data=jwt.verify(token,"shhhhhh");
+  //   if (!data) {
+    
+  //     return res.status(401).send({ error: "Unauthorized2" });
+  //   }
+
+  //   req.userId=data.userId;
+  //   console.log("request user id: ",req.userId)
+  //   // console.log("userid: ",req.session.userId)
+  //   next();
+  // };
 
 app.get("/Login", async (req, res) => {
   if (req.session.user) {
