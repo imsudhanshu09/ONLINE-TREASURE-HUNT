@@ -119,7 +119,7 @@ const SignUp = () => {
             <p className="error-message">Passwords do not match!</p>
           )}
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">Register/Login</button>
       </form>
       {showPopUp && (
         <div className="popup">
