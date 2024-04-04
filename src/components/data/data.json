@@ -34,7 +34,11 @@
 
   {
     "url":"/SignUp",
-    "info":"Register/Login"
+    "info":"Register"
+  },
+  {
+    "url":"/Login",
+    "info":"Login"
   }
  
 ]

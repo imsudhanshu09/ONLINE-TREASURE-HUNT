@@ -314,12 +314,20 @@ app.post("/SignUp", async (req, res) => {
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
+  const checkcred = await db.query("SELECT * FROM users WHERE (username, email) = ($1, $2)", [
+    username,email
+  ]);
+  const user=checkcred.rows[0];
+  if (user) {
+    res.send({status:true});
+  }
+  else {
   if (password !== confirmPassword) {
     return res.status(400).json({ error: "Passwords do not match" });
   }
   try {
-    const checkResult = await db.query("SELECT * FROM users WHERE email = $1", [
-      email,
+    const checkResult = await db.query("SELECT * FROM users WHERE (username, email) = ($1, $2)", [
+      username,email
     ]);
     
     if (checkResult.rows.length > 0) {
@@ -377,6 +385,7 @@ app.post("/SignUp", async (req, res) => {
     } catch (err) {
       console.log(err);
     }
+  }
 });
 
 // Middleware function to check if user is logged in

@@ -51,6 +51,7 @@ const Login = () => {
           navigate('/');
         }
         else{
+          alert("Invalid Credentials entered!")
           setLoginError("Login failed. Please check your credentials.");
         }
     } catch (error) {
