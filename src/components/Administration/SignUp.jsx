@@ -41,29 +41,29 @@ const SignUp = () => {
       setPasswordsMatch(false);
       return;
     }
-    // try {
-    //   const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
-    //   console.log("Server response:",response);
-    //   if(response.data.status == 69){
-    //     alert("Username or Email is taken")
-    //   } else {
-    //     console.log("Server response:",response.data.status);
-    //     setShowPopUp(true); // Show pop-up after successful registration
-    //   setTimeout(() => {
-    //     setShowPopUp(false); // Hide pop-up after 3 seconds
-    //     navigate('/'); // Navigate to home page
-    //   }, 2000);}
-    //     //navigate('/');
-    //   // Reset form after successful signup
-    //   setFormData({
-    //     username: '',
-    //     email: '',
-    //     password: '',
-    //     confirmPassword: ''
-    //   });
-    // } catch (error) {
-    //   console.error('Error during signup:', error);
-    // }
+    try {
+      const response = await axios.post('https://online-treasure-hunt-10.onrender.com/SignUp', formData);
+      console.log("Server response:",response);
+      if(response.data.status == 69){
+        alert("Username or Email is taken")
+      } else {
+        console.log("Server response:",response.data.status);
+        setShowPopUp(true); // Show pop-up after successful registration
+      setTimeout(() => {
+        setShowPopUp(false); // Hide pop-up after 3 seconds
+        navigate('/'); // Navigate to home page
+      }, 2000);}
+        //navigate('/');
+      // Reset form after successful signup
+      setFormData({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      });
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
   };
   
 

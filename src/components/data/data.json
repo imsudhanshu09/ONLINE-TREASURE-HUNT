@@ -30,8 +30,11 @@
 
 
 "settings":[
- 
 
+  {
+    "url":"/SignUp",
+    "info":"Register"
+  },
   {
     "url":"/Login",
     "info":"Login"
