@@ -2,6 +2,7 @@
 
 Online Treasure Hunt is a web-based interactive Treasure Hunt type quiz where players solve tricky questions based on current affairs and general knowledge and challenges to progress through a series of questions. The project is built using React for the frontend and Node.js for the backend.
 
+![WhatsApp Image 2025-04-27 at 00 31 08_23bfc03e](https://github.com/user-attachments/assets/9eb6debf-78fb-4976-9e6a-8eb68b0061d3)
 
 
 ## Features
@@ -14,6 +15,10 @@ Online Treasure Hunt is a web-based interactive Treasure Hunt type quiz where pl
 - *Admin Panel*: Manage questions and monitor player activity.
 
 ---
+
+![WhatsApp Image 2025-04-27 at 00 33 58_1776a3fe](https://github.com/user-attachments/assets/52b71ed0-2187-4621-bf0d-2a36b44f8a7c)
+![WhatsApp Image 2025-04-27 at 00 33 56_ad871f95](https://github.com/user-attachments/assets/c15a0a68-6a20-4f2a-9bd5-4ccb863eae3c)
+
 
 ### Prerequisites
 
