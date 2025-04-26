@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Online Treasure Hunt
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Online Treasure Hunt is a web-based interactive Treasure Hunt type quiz where players solve tricky questions based on current affairs and general knowledge and challenges to progress through a series of questions. The project is built using React for the frontend and Node.js for the backend.
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- *Interactive Gameplay*: Players can answer questions and receive immediate feedback.
+- *Leaderboard*: Tracks player progress and ranks them.
+- *Hints System*: Provides hints based on question difficulty.
+- *Responsive Design*: Optimized for both desktop and mobile devices.
+- *Authentication*: Secure login and registration system.
+- *Admin Panel*: Manage questions and monitor player activity.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (v14 or higher)
+- npm or yarn
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+git clone https://github.com/your-repo/online-treasure-hunt.git
+cd online-treasure-hunt
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies:
 
-### `npm run eject`
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Set up environment variables: Create a .env file in the      root directory and add the following
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+SESSION_SECRET=your_secret_key
+DATABASE_URL=your_database_url
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Start the development server:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+npm start
 
-## Learn More
+5. Start the backend server:
+node server.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Dependencies Used
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Frontend
 
-### Code Splitting
+React Router DOM: For routing.
+@mui/material: For UI components.
+Axios: For making HTTP requests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Backend
 
-### Analyzing the Bundle Size
+Express: For building the server.
+pg: For PostgreSQL database integration.
+bcrypt: For password hashing.
+jsonwebtoken: For token-based authentication.
+express-session: For session management.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+-----
 
-### Making a Progressive Web App
+![Alt text](frontendpage.png "Optional Title")
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# License
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
