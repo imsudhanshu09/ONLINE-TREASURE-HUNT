@@ -66,7 +66,6 @@ express-session: For session management.
 
 -----
 
-![Alt text](frontendpage.png "Optional Title")
 
 # License
 
